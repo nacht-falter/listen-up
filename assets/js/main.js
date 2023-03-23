@@ -32,20 +32,68 @@ function newGame() {
   selectLevel(gameData);
 }
 
-function setLevel() {
-  // Return an object with difficulty and level values
+/**
+ * Prompt user to select a level and set the initial difficulty
+ * accordingly. Calls the newRound function with the adjusted
+ * difficulty setting
+ */
+function selectLevel(gameData) {
+  // Set contents for popup area:
+  let title = "Choose your level";
+  let body = `
+    <ul class="select-level">
+      <li class="level-list-item">Beginner</li>
+      <li class="level-list-item">Advanced</li>
+      <li class="level-list-item">Pro</li>
+    </ul>
+    <button id="confirm-level" disabled>Confirm</button>
+    `;
+
+  showPopup(title, body);
+
+  // Add event listeners to the level list items and to the confirm button:
+  let level;
+  let button = document.getElementById("confirm-level");
+  let items = document.getElementsByClassName("level-list-item");
+  for (let item of items) {
+    item.addEventListener("click", function () {
+      this.classList.add("selected-item");
+      level = this.textContent;
+      // Set initial difficulty according to selected level:
+      gameData.difficulty = level === "Pro" ? 20 : level === "Advanced" ? 10 : 0;
+      button.disabled = false;
+      button.addEventListener("click", function () {
+        hidePopup();
+        newRound(gameData);
+      });
+    });
+  }
 }
 
 function newRound() {
   // Return an object with the score and number of correct answers
 }
 
-function showPopup() {
+/**
+ * Show the popup area and set its content according
+ * to the given parameters.
+ */
+function showPopup(title, body) {
   // Show popup area and display popup title and body.
+  let popupArea = document.getElementById("popup-area");
+  let popupTitle = document.getElementById("popup-title");
+  let popupBody = document.getElementById("popup-body");
+  popupArea.style.display = "block";
+  popupTitle.textContent = title;
+  popupBody.innerHTML = body;
 }
 
+/**
+ * Hide popup area
+ */
 function hidePopup() {
-  // Hide popup area.
+  let popupArea = document.getElementById("popup-area");
+  popupArea.style.display = "none";
 }
 
 function selectTrack() {
