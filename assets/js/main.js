@@ -1,17 +1,39 @@
+// Wait for DOM content to load, then start the game
+document.addEventListener("DOMContentLoaded", function () {
+  // Start tutorial if the game is run for the first time. Check in localStorage if tutorial has been completed before.
+  // Local storage functionality from https://www.w3schools.com/html/html5_webstorage.asp
+  if (!localStorage.getItem("tutorialCompleted")) {
+    startTutorial();
+    localStorage.setItem("tutorialCompleted", "true");
+  } else {
+    newGame();
+  }
+});
+
+/**
+ * Display a popup containing the tutorial.
+ */
+function startTutorial() {
+  // TODO: Display tutorial
+  newGame();
+}
+
+/**
+ * Function to start a new game and initialize the game data.
+ */
 function newGame() {
-  // Set round, score, lives to initial values.
-  // Call setLevel function.
-  // Check if game runs for the first time and if so start tutorial
-  // Start main game loop if there are lives left
-  // Inside the loop Call the following functions: startRound, setupTask, PlayAudio, countdown.
+  let gameData = {
+    round: 1,
+    score: 0,
+    lives: 3,
+    playedTracks: [],
+    difficulty: 0,
+  };
+  selectLevel(gameData);
 }
 
 function setLevel() {
   // Return an object with difficulty and level values
-}
-
-function startTutorial() {
-  // Show tutorial if the game runs for the first time.
 }
 
 function newRound() {
