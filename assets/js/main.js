@@ -37,6 +37,7 @@ function newGame() {
     score: 0,
     lives: 3,
     playedTracks: [],
+    currentTrack: {},
     difficulty: 0,
   };
   selectLevel(gameData);
@@ -99,10 +100,10 @@ function newRound(gameData) {
     let button = document.getElementById("start-first-round-button");
     button.addEventListener("click", function () {
       hidePopup();
-      let track = selectTrack(gameData);
-      setupTask(gameData, track);
-      playTrack(gameData, track);
-      countdownTimer(gameData, track);
+      gameData = selectTrack(gameData, allTracks);
+      setupTask(gameData);
+      playTrack(gameData);
+      countdownTimer(gameData);
     });
   }
 }
@@ -129,9 +130,20 @@ function hidePopup() {
   popupArea.style.display = "none";
 }
 
-function selectTrack(gameData) {
-  console.log("Function: selectTrack");
-  // Randomly choose an item from the JSON file according to the difficulty values and add the item to the playedPieces array.
+/**
+ * Select a random track from the allTracks array
+ */
+function selectTrack(gameData, allTracks) {
+  let i = Math.floor(Math.random() * allTracks.length);
+  console.log(i);
+  let track = allTracks[i];
+
+  // Store played track in game data to keep it from being selected again.
+  gameData.playedTracks.push(i);
+  gameData.currentTrack = track;
+  console.log(`Selected track: " ${track.composer} - ${track.title}`);
+  console.log(gameData);
+  return gameData;
 }
 
 function setupTask() {
