@@ -49,12 +49,13 @@ function newGame() {
  */
 function selectLevel(gameData) {
   // Set contents for popup area:
+  let levels = ["Beginner", "Intermediate", "Advanced"];
   let title = "Choose your level";
   let body = `
     <ul class="select-level">
-      <li class="level-list-item">Beginner</li>
-      <li class="level-list-item">Advanced</li>
-      <li class="level-list-item">Pro</li>
+      <li class="level-list-item">${levels[0]}</li>
+      <li class="level-list-item">${levels[1]}</li>
+      <li class="level-list-item">${levels[2]}</li>
     </ul>
     <button id="confirm-level-button" disabled>Confirm</button>
     `;
@@ -71,7 +72,7 @@ function selectLevel(gameData) {
       let level = this.textContent;
       gameData.level = level;
       // Set initial difficulty according to selected level:
-      gameData.difficulty = level === "Pro" ? 20 : level === "Advanced" ? 10 : 0;
+      gameData.difficulty = level === levels[2] ? 20 : level === levels[1] ? 10 : 0;
       button.disabled = false;
       console.log("Difficulty set to: " + gameData.difficulty);
       button.addEventListener("click", function () {
