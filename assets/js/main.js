@@ -73,7 +73,27 @@ function selectLevel(gameData) {
 }
 
 function newRound(gameData) {
-  console.log("New Round started with the following settings: " + gameData);
+  console.log("New Round started with the following difficulty: " + gameData.difficulty);
+  if (gameData.round === 1) {
+    // Set contents for popup area:
+    let title = "Round 1";
+    let body = `
+      <p>Level: ${gameData.level}</p>
+      <p>Ready?</p>
+      <button id="start-first-round-button">Start Game</button>
+    `;
+
+    showPopup(title, body);
+
+    let button = document.getElementById("start-first-round-button");
+    button.addEventListener("click", function () {
+      hidePopup();
+      let track = selectTrack(gameData);
+      setupTask(gameData, track);
+      playTrack(gameData, track);
+      countdownTimer(gameData, track);
+    });
+  }
 }
 
 /**
