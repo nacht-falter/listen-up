@@ -46,22 +46,24 @@ function selectLevel(gameData) {
       <li class="level-list-item">Advanced</li>
       <li class="level-list-item">Pro</li>
     </ul>
-    <button id="confirm-level" disabled>Confirm</button>
+    <button id="confirm-level-button" disabled>Confirm</button>
     `;
 
   showPopup(title, body);
 
   // Add event listeners to the level list items and to the confirm button:
-  let level;
-  let button = document.getElementById("confirm-level");
+  let button = document.getElementById("confirm-level-button");
   let items = document.getElementsByClassName("level-list-item");
+
   for (let item of items) {
     item.addEventListener("click", function () {
       this.classList.add("selected-item");
-      level = this.textContent;
+      let level = this.textContent;
+      gameData.level = level;
       // Set initial difficulty according to selected level:
       gameData.difficulty = level === "Pro" ? 20 : level === "Advanced" ? 10 : 0;
       button.disabled = false;
+      console.log("Difficulty set to: " + gameData.difficulty);
       button.addEventListener("click", function () {
         hidePopup();
         newRound(gameData);
@@ -70,8 +72,8 @@ function selectLevel(gameData) {
   }
 }
 
-function newRound() {
-  // Return an object with the score and number of correct answers
+function newRound(gameData) {
+  console.log("New Round started with the following settings: " + gameData);
 }
 
 /**
@@ -96,65 +98,78 @@ function hidePopup() {
   popupArea.style.display = "none";
 }
 
-function selectTrack() {
+function selectTrack(gameData) {
+  console.log("Function: selectTrack");
   // Randomly choose an item from the JSON file according to the difficulty values and add the item to the playedPieces array.
 }
 
 function setupTask() {
+  console.log("Function: setupTask");
   // Display the correct instruments randomly mixed with wrong instruments in the options area as list items
   // Display the amount of instruments in the total items span
   // Add EventListeners to the list items calling the selectInstrument function.
   // Return the item selected from the JSON file.
 }
 
-function playAudio() {
+function playTrack() {
+  console.log("Function: playTrack");
   // Play the adio file specified in the JSON object.
 }
 
 function countdownTimer() {
+  console.log("Function: countdownTimer");
   // Determine time depending on difficulty and number of instruments to find.
   // Start the countdown and animates the progress bar.
   // After the countdown is finished call the endRound function.
 }
 
 function selectInstrument() {
+  console.log("Function: selectInstrument");
   // Check if the instrument selected by the user is correct.
   // If so append it to the answer area and remove it from the optons area. Also call updateScore function and increase multiplier.
   // If not reset multiplier and give some feedback.
 }
 
 function updateScore() {
+  console.log("Function: updateScore");
   // Increments the score by the number of correct instruments clicked in a row (multiplier).
 }
 
 function levelUp() {
+  console.log("Function: levelUp");
   // If there were no mistakes made in several rounds increase the difficulty.
 }
 
 function endRound() {
+  console.log("Function: endRound");
   // Displays a popup with the results of the round and some information on the piece of music
   // Call the gameOver function or the newRound function depending on if there are lives left.
 }
 
 function gameOver() {
+  console.log("Function: gameOver");
   // Check how many lives there are left and ends the game if there are none.
   // Call addHighscore function.
 }
 
 function abortGame() {
+  console.log("Function: abortGame");
   // Display a warning and go to home screen if users confirms
   // call addHighscore function
 }
 
 function addHighscore() {
+  console.log("Function: addHighscore");
   // Ask for name and add result to highscore list in localStorage
 }
 
 function pauseGame() {
+  console.log("Function: pauseGame");
   // Display the pause popup and resume, restart or end the game according to user selection.
 }
 
 function changSettings() {
+  console.log("Function: changSettings");
   // Display settings popup and adjust them according to user selection.
   // Write values to local storage.
 }
