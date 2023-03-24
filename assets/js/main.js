@@ -1,3 +1,13 @@
+// Fetch JSON data from file:
+// Source for fetch() method: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_api_fetch
+let allTracks;
+fetch("assets/json/music-library.json")
+  .then((response) => response.json())
+  .then((data) => {
+    allTracks = data;
+    console.log(allTracks);
+  });
+
 // Wait for DOM content to load, then start the game
 document.addEventListener("DOMContentLoaded", function () {
   // Start tutorial if the game is run for the first time. Check in localStorage if tutorial has been completed before.
