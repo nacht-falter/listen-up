@@ -105,8 +105,35 @@ footer {
   --------------------------------*/
 
 /*--------------------------------
-  FOOTER STLES
+  FOOTER STYLES
   --------------------------------*/
+
+/*--------------------------------
+  POPUP STYLES
+  --------------------------------*/
+#popup-area {
+  display: none;
+}
+
+#popup-content {
+  position: absolute;
+  top: 20vh;
+  right: 10vw;
+  width: 80vw;
+  min-height: 30vh;
+  border-radius: 20px;
+  border: 1px solid var(--black);
+  background-color: var(--white);
+  z-index: 3;
+}
+
+#popup-overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 2;
+}
 
 /*--------------------------------
   ADDITIONAL TYPOGRAPHY
