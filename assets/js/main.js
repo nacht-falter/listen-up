@@ -144,8 +144,31 @@ function hidePopup() {
  * Select a random track from the allTracks array
  */
 function selectTrack(gameData, allTracks) {
-  let rnd = Math.floor(Math.random() * allTracks.length);
-  let track = allTracks[rnd];
+  // Set maximum number of Instruments according to difficulty
+  let instrumentCountMax =
+    gameData.difficulty < 10
+      ? 3
+      : gameData.difficulty < 15
+      ? 6
+      : gameData.difficulty < 20
+      ? 10
+      : gameData.difficulty < 25
+      ? 15
+      : 20;
+
+  // Find all tracks in allTracks array whose number of instruments is <= instrumentCountMax
+  // Solution adapted from: https://stackoverflow.com/questions/52311150/find-all-matching-elements-with-in-an-array-of-objects
+  let tracks = allTracks.filter((item) => item.instruments.length <= instrumentCountMax);
+
+  // Generate random number. Check if it has already been used and generate another if necessary:
+  let rnd;
+  do {
+    rnd = Math.floor(Math.random() * tracks.length);
+  } while (gameData.playedTracks.includes(rnd));
+
+  let track = tracks[rnd];
+  console.table(tracks);
+
   // Store played track in game data to keep it from being selected again:
   gameData.playedTracks.push(rnd);
   gameData.currentTrack = track;
@@ -168,6 +191,7 @@ function setupInstruments(gameData, allInstruments) {
       trackInstruments.push(result);
     }
   }
+
   console.log("Track Instruments");
   console.table(trackInstruments);
   // Set the amount of instruments to display according to difficulty:
