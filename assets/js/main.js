@@ -1,4 +1,4 @@
-// Fetch JSON data from file:
+// Fetch JSON data from files:
 // Source for fetch() method: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_api_fetch
 let allTracks;
 fetch("assets/json/music-library.json")
@@ -6,6 +6,14 @@ fetch("assets/json/music-library.json")
   .then((data) => {
     allTracks = data;
     console.log(allTracks);
+  });
+
+let allInstruments;
+fetch("assets/json/musical-instruments.json")
+  .then((response) => response.json())
+  .then((data) => {
+    allInstruments = data;
+    console.log(allInstruments);
   });
 
 // Wait for DOM content to load, then start the game
@@ -101,7 +109,9 @@ function newRound(gameData) {
     button.addEventListener("click", function () {
       hidePopup();
       gameData = selectTrack(gameData, allTracks);
-      setupTask(gameData);
+      let taskInstruments = setupInstruments(gameData, allInstruments);
+      console.log(taskInstruments);
+      setupTask(gameData, taskInstruments);
       playTrack(gameData);
       countdownTimer(gameData);
     });
@@ -134,24 +144,57 @@ function hidePopup() {
  * Select a random track from the allTracks array
  */
 function selectTrack(gameData, allTracks) {
-  let i = Math.floor(Math.random() * allTracks.length);
-  console.log(i);
-  let track = allTracks[i];
-
-  // Store played track in game data to keep it from being selected again.
-  gameData.playedTracks.push(i);
+  let rnd = Math.floor(Math.random() * allTracks.length);
+  let track = allTracks[rnd];
+  // Store played track in game data to keep it from being selected again:
+  gameData.playedTracks.push(rnd);
   gameData.currentTrack = track;
   console.log(`Selected track: " ${track.composer} - ${track.title}`);
-  console.log(gameData);
   return gameData;
+}
+
+/**
+ * Create array of correct instruments and some random
+ * additional instruments to be displayed as a list. Add
+ * event listeners to the list items
+ */
+function setupInstruments(gameData, allInstruments) {
+  // Look for track instruments in allInstruments array and push them to a new array.
+  // Solution found at https://stackoverflow.com/questions/12462318/find-a-value-in-an-array-of-objects-in-javascript
+  let trackInstruments = [];
+  for (let instrument of gameData.currentTrack.instruments) {
+    let result = allInstruments.find((item) => item.name === instrument);
+    if (result) {
+      trackInstruments.push(result);
+    }
+  }
+  console.log("Track Instruments");
+  console.table(trackInstruments);
+  // Set the amount of instruments to display according to difficulty:
+  let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 10 ? 16 : 24;
+
+  // Calculate the amount of additonal instruments to display:
+  let additionalInstrumentCount = totalInstrumentsCount - trackInstruments.length;
+
+  // Remove track instruments from all instruments array, to make sure that there are no duplicates
+  // Adapted from https://stackoverflow.com/questions/45342155/how-to-subtract-one-array-from-another-element-wise-in-javascript
+  let filteredInstruments = allInstruments.filter((n) => !trackInstruments.includes(n));
+
+  // Shuffle the array with all instruments and select the appropriate number of additional instruments
+  // Adapted from https://stackoverflow.com/questions/19269545/how-to-get-a-number-of-random-elements-from-an-array
+  let additionalInstruments = filteredInstruments.sort(() => 0.5 - Math.random()).slice(0, additionalInstrumentCount);
+  console.log("Additional Instruments");
+  console.table(additionalInstruments);
+
+  let taskInstruments = trackInstruments.concat(additionalInstruments).sort(() => 0.5 - Math.random());
+  console.log("Task Instruments");
+  console.table(taskInstruments);
+  return taskInstruments;
 }
 
 function setupTask() {
   console.log("Function: setupTask");
-  // Display the correct instruments randomly mixed with wrong instruments in the options area as list items
-  // Display the amount of instruments in the total items span
   // Add EventListeners to the list items calling the selectInstrument function.
-  // Return the item selected from the JSON file.
 }
 
 function playTrack() {
