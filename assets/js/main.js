@@ -216,9 +216,24 @@ function setupInstruments(gameData, allInstruments) {
   return taskInstruments;
 }
 
-function setupTask() {
+function setupTask(taskInstruments) {
   console.log("Function: setupTask");
-  // Add EventListeners to the list items calling the selectInstrument function.
+  const allAnswers = document.getElementById("all-answers");
+
+  // Set the column count for grid layout:
+  let gridLayout =
+    taskInstruments.length <= 9 ? 1 : taskInstruments.length <= 12 ? 2 : taskInstruments.length <= 16 ? 3 : 4;
+  allAnswers.classList.add(`grid-layout-${gridLayout}`);
+
+  // Create list items for all instruments in taskInstruments array and add event listeners:
+  for (instrument of taskInstruments) {
+    const createInstrument = document.createElement("li");
+    createInstrument.classList.add("grid-item", "instrument-tile");
+    createInstrument.style.backgroundImage = `url(assets/images/instruments/${instrument.image})`;
+    createInstrument.innerHTML = instrument.name;
+    createInstrument.addEventListener("click", selectInstrument);
+    allAnswers.appendChild(createInstrument);
+  }
 }
 
 function playTrack() {
