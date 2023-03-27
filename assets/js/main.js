@@ -40,7 +40,7 @@ function startTutorial() {
  * Function to start a new game and initialize the game data.
  */
 function newGame() {
-  let gameData = {
+  const gameData = {
     round: 1,
     score: 0,
     lives: 3,
@@ -72,8 +72,8 @@ function selectLevel(gameData) {
   showPopup(title, body);
 
   // Add event listeners to the level list items and to the confirm button:
-  let button = document.getElementById("confirm-level-button");
-  let items = document.getElementsByClassName("level-list-item");
+  const button = document.getElementById("confirm-level-button");
+  const items = document.getElementsByClassName("level-list-item");
 
   for (let item of items) {
     item.addEventListener("click", function () {
@@ -105,13 +105,13 @@ function newRound(gameData) {
 
     showPopup(title, body);
 
-    let button = document.getElementById("start-first-round-button");
+    const button = document.getElementById("start-first-round-button");
     button.addEventListener("click", function () {
       hidePopup();
       gameData = selectTrack(gameData, allTracks);
       let taskInstruments = setupInstruments(gameData, allInstruments);
       console.log(taskInstruments);
-      setupTask(gameData, taskInstruments);
+      setupTask(taskInstruments);
       playTrack(gameData);
       countdownTimer(gameData);
     });
@@ -124,9 +124,9 @@ function newRound(gameData) {
  */
 function showPopup(title, body) {
   // Show popup area and display popup title and body.
-  let popupArea = document.getElementById("popup-area");
-  let popupTitle = document.getElementById("popup-title");
-  let popupBody = document.getElementById("popup-body");
+  const popupArea = document.getElementById("popup-area");
+  const popupTitle = document.getElementById("popup-title");
+  const popupBody = document.getElementById("popup-body");
   popupArea.style.display = "block";
   popupTitle.textContent = title;
   popupBody.innerHTML = body;
@@ -136,7 +136,7 @@ function showPopup(title, body) {
  * Hide popup area
  */
 function hidePopup() {
-  let popupArea = document.getElementById("popup-area");
+  const popupArea = document.getElementById("popup-area");
   popupArea.style.display = "none";
 }
 
@@ -145,7 +145,7 @@ function hidePopup() {
  */
 function selectTrack(gameData, allTracks) {
   // Set maximum number of Instruments according to difficulty
-  let instrumentCountMax =
+  const instrumentCountMax =
     gameData.difficulty < 10
       ? 3
       : gameData.difficulty < 15
@@ -195,7 +195,7 @@ function setupInstruments(gameData, allInstruments) {
   console.log("Track Instruments");
   console.table(trackInstruments);
   // Set the amount of instruments to display according to difficulty:
-  let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 10 ? 16 : 24;
+  let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 10 ? 16 : 25;
 
   // Calculate the amount of additonal instruments to display:
   let additionalInstrumentCount = totalInstrumentsCount - trackInstruments.length;
