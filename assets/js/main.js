@@ -48,6 +48,7 @@ function newGame() {
     currentTrack: {},
     difficulty: 0,
   };
+  document.getElementById("score-counter").textContent = gameData.score;
   selectLevel(gameData);
 }
 
@@ -219,6 +220,11 @@ function setupInstruments(gameData, allInstruments) {
   return taskInstruments;
 }
 
+/**
+ * Set the layout for the instruments to be displayed and add instrument
+ * list items to options area.
+ * Add event listeners to the list items.
+ */
 function setupTask(taskInstruments) {
   console.log("Function: setupTask");
   const allAnswers = document.getElementById("all-answers");
@@ -226,26 +232,36 @@ function setupTask(taskInstruments) {
   // Set the column count for grid layout:
   let gridLayout = taskInstruments.length <= 12 ? 1 : taskInstruments.length <= 16 ? 2 : 3;
   allAnswers.classList.add(`grid-layout-${gridLayout}`);
-  let multiplier = 0;
+  let points = 0;
+  let wrongAnswers = 0;
+
   // Create list items for all instruments in taskInstruments array and add event listeners:
   for (let instrument of taskInstruments) {
     const createInstrument = document.createElement("li");
     createInstrument.classList.add("grid-item", "instrument-tile");
     createInstrument.style.backgroundImage = `url(assets/images/instruments/${instrument.image})`;
-    createInstrument.innerHTML = `<span><p>${instrument.name}</p></span>`;
+    createInstrument.innerHTML = `
+      <span class="item-content">
+        <p>${instrument.name}</p>
+      </span>`;
+
     createInstrument.addEventListener("click", function () {
       if (instrument.correct) {
         createInstrument.classList.add("correct-item");
-        multiplier++;
-        updateScore(multiplier);
+        points < 0 ? (points = 0) : points++;
+        wrongAnswers = 0;
+        updateScore(true, points, createInstrument);
       } else {
         createInstrument.classList.add("wrong-item");
         setTimeout(function () {
           createInstrument.classList.remove("wrong-item");
         }, 300);
-        multiplier = 0;
+        points = wrongAnswers === 0 ? 0 : -1;
+        wrongAnswers++;
+        updateScore(false, points, createInstrument);
       }
     });
+
     allAnswers.appendChild(createInstrument);
   }
 }
