@@ -70,11 +70,12 @@ footer {
   height: 10%;
 }
 #options-area {
-  max-height: 65%;
+  max-height: 100%;
   margin-bottom: 5%;
   padding: 10px;
   border-radius: 7px;
   border: 1px solid var(--black);
+  overflow: scroll;
 }
 
 /*--------------------------------
@@ -108,11 +109,6 @@ footer {
 .grid-layout-3 {
   /* TODO: Add media query */
   grid-template-columns: 1fr 1fr 1fr 1fr;
-}
-
-.grid-layout-4 {
-  /* TODO: Add media query */
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
 .grid-item {

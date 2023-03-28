@@ -153,7 +153,7 @@ function selectTrack(gameData, allTracks) {
       : gameData.difficulty < 20
       ? 10
       : gameData.difficulty < 25
-      ? 15
+      ? 20
       : 20;
 
   // Find all tracks in allTracks array whose number of instruments is <= instrumentCountMax
@@ -201,7 +201,8 @@ function setupInstruments(gameData, allInstruments) {
   console.table(trackInstruments);
 
   // Set the amount of instruments to display according to difficulty:
-  let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 10 ? 16 : 25;
+  let totalInstrumentsCount =
+    trackInstruments.length === 1 ? 9 : trackInstruments.length < 5 ? 12 : trackInstruments.length < 8 ? 16 : 24;
 
   // Calculate the amount of additonal instruments to display:
   let additionalInstrumentCount = totalInstrumentsCount - trackInstruments.length;
@@ -223,8 +224,7 @@ function setupTask(taskInstruments) {
   const allAnswers = document.getElementById("all-answers");
 
   // Set the column count for grid layout:
-  let gridLayout =
-    taskInstruments.length <= 9 ? 1 : taskInstruments.length <= 12 ? 2 : taskInstruments.length <= 16 ? 3 : 4;
+  let gridLayout = taskInstruments.length <= 12 ? 1 : taskInstruments.length <= 16 ? 2 : 3;
   allAnswers.classList.add(`grid-layout-${gridLayout}`);
   let multiplier = 0;
   // Create list items for all instruments in taskInstruments array and add event listeners:
