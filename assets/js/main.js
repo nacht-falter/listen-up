@@ -182,27 +182,29 @@ function selectTrack(gameData, allTracks) {
  * event listeners to the list items
  */
 function setupInstruments(gameData, allInstruments) {
-  // Look for track instruments in allInstruments array and push them to a new array.
-  // Solution found at https://stackoverflow.com/questions/12462318/find-a-value-in-an-array-of-objects-in-javascript
-  let trackInstruments = [];
-  for (let instrument of gameData.currentTrack.instruments) {
-    let result = allInstruments.find((item) => item.name === instrument);
-    if (result) {
-      trackInstruments.push(result);
-    }
+  // Look for track instruments in allInstruments array and store them in trackInstruments.
+  // Adapted from: https://bobbyhadz.com/blog/javascript-get-difference-between-two-arrays-of-objects
+  let trackInstruments = allInstruments.filter((item2) => {
+    return gameData.currentTrack.instruments.some((item1) => item1 === item2.name);
+  });
+
+  // Mark all track instruments as "correct".
+  for (let item of trackInstruments) {
+    item.correct = true;
   }
+
+  // Remove track instruments from all instruments array, to make sure that there are no duplicates
+  // Adapted from https://stackoverflow.com/questions/45342155/how-to-subtract-one-array-from-another-element-wise-in-javascript
+  let filteredInstruments = allInstruments.filter((item) => !trackInstruments.includes(item));
 
   console.log("Track Instruments");
   console.table(trackInstruments);
+
   // Set the amount of instruments to display according to difficulty:
   let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 10 ? 16 : 25;
 
   // Calculate the amount of additonal instruments to display:
   let additionalInstrumentCount = totalInstrumentsCount - trackInstruments.length;
-
-  // Remove track instruments from all instruments array, to make sure that there are no duplicates
-  // Adapted from https://stackoverflow.com/questions/45342155/how-to-subtract-one-array-from-another-element-wise-in-javascript
-  let filteredInstruments = allInstruments.filter((n) => !trackInstruments.includes(n));
 
   // Shuffle the array with all instruments and select the appropriate number of additional instruments
   // Adapted from https://stackoverflow.com/questions/19269545/how-to-get-a-number-of-random-elements-from-an-array
@@ -232,6 +234,7 @@ function setupTask(taskInstruments) {
     createInstrument.style.backgroundImage = `url(assets/images/instruments/${instrument.image})`;
     createInstrument.innerHTML = instrument.name;
     createInstrument.addEventListener("click", selectInstrument);
+    // createInstrument.addEventListener("click", selectInstrument);
     allAnswers.appendChild(createInstrument);
   }
 }
