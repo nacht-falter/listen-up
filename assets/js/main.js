@@ -226,15 +226,25 @@ function setupTask(taskInstruments) {
   let gridLayout =
     taskInstruments.length <= 9 ? 1 : taskInstruments.length <= 12 ? 2 : taskInstruments.length <= 16 ? 3 : 4;
   allAnswers.classList.add(`grid-layout-${gridLayout}`);
-
+  let multiplier = 0;
   // Create list items for all instruments in taskInstruments array and add event listeners:
   for (let instrument of taskInstruments) {
     const createInstrument = document.createElement("li");
     createInstrument.classList.add("grid-item", "instrument-tile");
     createInstrument.style.backgroundImage = `url(assets/images/instruments/${instrument.image})`;
-    createInstrument.innerHTML = instrument.name;
+    createInstrument.innerHTML = `<span><p>${instrument.name}</p></span>`;
     createInstrument.addEventListener("click", function () {
-      selectInstrument(instrument);
+      if (instrument.correct) {
+        createInstrument.classList.add("correct-item");
+        multiplier++;
+        updateScore(multiplier);
+      } else {
+        createInstrument.classList.add("wrong-item");
+        setTimeout(function () {
+          createInstrument.classList.remove("wrong-item");
+        }, 300);
+        multiplier = 0;
+      }
     });
     allAnswers.appendChild(createInstrument);
   }
@@ -252,13 +262,6 @@ function countdownTimer() {
   // After the countdown is finished call the endRound function.
 }
 
-function selectInstrument() {
-  console.log("Function: selectInstrument");
-  // Check if the instrument selected by the user is correct.
-  // If so append it to the answer area and remove it from the optons area. Also call updateScore function and increase multiplier.
-  // If not reset multiplier and give some feedback.
-}
-
 function updateScore() {
   console.log("Function: updateScore");
   // Increments the score by the number of correct instruments clicked in a row (multiplier).
@@ -268,7 +271,6 @@ function levelUp() {
   console.log("Function: levelUp");
   // If there were no mistakes made in several rounds increase the difficulty.
 }
-
 function endRound() {
   console.log("Function: endRound");
   // Displays a popup with the results of the round and some information on the piece of music
