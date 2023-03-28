@@ -228,13 +228,14 @@ function setupTask(taskInstruments) {
   allAnswers.classList.add(`grid-layout-${gridLayout}`);
 
   // Create list items for all instruments in taskInstruments array and add event listeners:
-  for (instrument of taskInstruments) {
+  for (let instrument of taskInstruments) {
     const createInstrument = document.createElement("li");
     createInstrument.classList.add("grid-item", "instrument-tile");
     createInstrument.style.backgroundImage = `url(assets/images/instruments/${instrument.image})`;
     createInstrument.innerHTML = instrument.name;
-    createInstrument.addEventListener("click", selectInstrument);
-    // createInstrument.addEventListener("click", selectInstrument);
+    createInstrument.addEventListener("click", function () {
+      selectInstrument(instrument);
+    });
     allAnswers.appendChild(createInstrument);
   }
 }
