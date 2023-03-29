@@ -169,6 +169,7 @@ function selectTrack(gameData, allTracks) {
 
   let track = tracks[rnd];
   console.table(tracks);
+  document.getElementById("total-items").textContent = track.instruments.length;
 
   // Store played track in game data to keep it from being selected again:
   gameData.playedTracks.push(rnd);
@@ -281,12 +282,14 @@ function countdownTimer() {
 /**
  * Update the score and display it in the score area.
  * Display the points added to the score as floating element.
+ * Call endRound() function if all items have been found.
  */
 function updateScore(correct, points, clickedItem) {
   console.log("Function: updateScore");
-  // Increments the score by the number of correct instruments clicked in a row (multiplier).
+  // Add or substract points to/from the score with wrong/right answer
   let oldScore = parseInt(document.getElementById("score-counter").textContent);
   let score = document.getElementById("score-counter");
+  let oldItemCount = parseInt(document.getElementById("correct-items").textContent);
 
   if (!clickedItem.getAttribute("data-clicked")) {
     let float = document.createElement("span");
@@ -300,6 +303,8 @@ function updateScore(correct, points, clickedItem) {
     // Mark correct items as clicked and set colors for floats
     if (correct) {
       clickedItem.setAttribute("data-clicked", "true");
+      // Update number of correct instruments
+      document.getElementById("correct-items").textContent = ++oldItemCount;
       float.style.color = "yellow";
     } else {
       float.style.color = "red";
@@ -316,6 +321,14 @@ function updateScore(correct, points, clickedItem) {
         }, 1000);
       }, 1000);
     }, 10);
+
+    // If all instruments have been found call endRound()
+    let correctItems = document.getElementById("correct-items").innerText;
+    let totalItems = document.getElementById("total-items").innerText;
+    if (correctItems === totalItems) {
+      console.log("All instruments have been found");
+      endRound();
+    }
   }
 }
 
