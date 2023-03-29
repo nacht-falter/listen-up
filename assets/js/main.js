@@ -113,7 +113,7 @@ function newRound(gameData) {
       let taskInstruments = setupInstruments(gameData, allInstruments);
       console.log(taskInstruments);
       setupTask(taskInstruments);
-      playTrack(gameData);
+      playAudio(gameData);
       countdownTimer(gameData);
     });
   }
@@ -266,10 +266,20 @@ function setupTask(taskInstruments) {
     allAnswers.appendChild(createInstrument);
   }
 }
-
-function playTrack() {
-  console.log("Function: playTrack");
-  // Play the adio file specified in the JSON object.
+/**
+ * Play the audio file specified in the JSON object.
+ */
+function playAudio(gameData) {
+  // Play audio file. Adapted from https://stackoverflow.com/questions/52575143/play-an-audio-file-in-javascript
+  let audioFile = "assets/audio/" + gameData.currentTrack.file;
+  let audio = new Audio(audioFile);
+  audio.play();
+  console.log("Audio file playing: " + audioFile);
+  // Throw an error if audio file is not available. Solution found at https://www.w3schools.com/tags/av_event_error.asp#gsc.tab=0
+  audio.onerror = function () {
+    console.log("Error: Audio file not available. Starting new round!");
+    newRound(gameData);
+  };
 }
 
 function countdownTimer() {
