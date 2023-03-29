@@ -278,9 +278,45 @@ function countdownTimer() {
   // After the countdown is finished call the endRound function.
 }
 
-function updateScore() {
+/**
+ * Update the score and display it in the score area.
+ * Display the points added to the score as floating element.
+ */
+function updateScore(correct, points, clickedItem) {
   console.log("Function: updateScore");
   // Increments the score by the number of correct instruments clicked in a row (multiplier).
+  let oldScore = parseInt(document.getElementById("score-counter").textContent);
+  let score = document.getElementById("score-counter");
+
+  if (!clickedItem.getAttribute("data-clicked")) {
+    let float = document.createElement("span");
+    float.classList.add("score-float");
+    clickedItem.appendChild(float);
+    score.textContent = oldScore + points;
+
+    // If points is 0 no float appears
+    float.textContent = points !== 0 ? points : "";
+
+    // Mark correct items as clicked and set colors for floats
+    if (correct) {
+      clickedItem.setAttribute("data-clicked", "true");
+      float.style.color = "yellow";
+    } else {
+      float.style.color = "red";
+    }
+
+    // Add and remove class for float animation to float
+    setTimeout(function () {
+      float.classList.add("visible-float", "large-float");
+      setTimeout(function () {
+        float.classList.remove("visible-float");
+        setTimeout(function () {
+          float.classList.remove("large-float");
+          clickedItem.removeChild(float);
+        }, 1000);
+      }, 1000);
+    }, 10);
+  }
 }
 
 function levelUp() {
