@@ -46,7 +46,7 @@ function newGame() {
     lives: 3,
     playedTracks: [],
     currentTrack: {},
-    difficulty: 0,
+    difficulty: 1,
   };
   document.getElementById("score-counter").textContent = gameData.score;
   selectLevel(gameData);
@@ -82,7 +82,7 @@ function selectLevel(gameData) {
       let level = this.textContent;
       gameData.level = level;
       // Set initial difficulty according to selected level:
-      gameData.difficulty = level === levels[2] ? 20 : level === levels[1] ? 10 : 0;
+      gameData.difficulty = level === levels[2] ? 20 : level === levels[1] ? 10 : 1;
       button.disabled = false;
       console.log("Difficulty set to: " + gameData.difficulty);
       button.addEventListener("click", function () {
@@ -278,12 +278,32 @@ function playAudio(gameData) {
   // Throw an error if audio file is not available. Solution found at https://www.w3schools.com/tags/av_event_error.asp#gsc.tab=0
   audio.onerror = function () {
     console.log("Error: Audio file not available. Starting new round!");
-    newRound(gameData);
+    newRound();
   };
 }
 
-function countdownTimer() {
-  console.log("Function: countdownTimer");
+/**
+ * Calculate countdown time according to difficulty and number
+ * of instruments and display progress bar.
+ * Call endRound function when time runs out.
+ */
+function countdownTimer(gameData) {
+  let defaultTime = 90000;
+  let minTime = 20000;
+  let maxTime = 120000;
+  // Calculate countdown time depending on difficulty and number of instruments with
+  let countdownTime = Math.min(
+    Math.max(
+      parseInt((defaultTime / (gameData.difficulty / 20)) * (gameData.currentTrack.instruments.length / 10)),
+      minTime
+    ),
+    maxTime
+  );
+  console.log("Countdown time: " + countdownTime);
+  let progressBar = document.getElementsByClassName("progress-bar")[0];
+  progressBar.style.transitionDuration = countdownTime + "ms";
+  progressBar.classList.add("progress-bar-empty");
+  setTimeout(endRound, countdownTime);
   // Determine time depending on difficulty and number of instruments to find.
   // Start the countdown and animates the progress bar.
   // After the countdown is finished call the endRound function.
