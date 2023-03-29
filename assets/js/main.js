@@ -16,6 +16,9 @@ fetch("assets/json/musical-instruments.json")
     console.log(allInstruments);
   });
 
+// Initialize variable holding the game data so that it is accessible on global scope
+let gameData = {};
+
 // Wait for DOM content to load, then start the game
 document.addEventListener("DOMContentLoaded", function () {
   // Start tutorial if the game is run for the first time. Check in localStorage if tutorial has been completed before.
@@ -40,16 +43,17 @@ function startTutorial() {
  * Function to start a new game and initialize the game data.
  */
 function newGame() {
-  const gameData = {
+  gameData = {
     round: 1,
     score: 0,
     lives: 3,
     playedTracks: [],
     currentTrack: {},
     difficulty: 1,
+    itemCount: 0,
   };
   document.getElementById("score-counter").textContent = gameData.score;
-  selectLevel(gameData);
+  selectLevel();
 }
 
 /**
@@ -57,7 +61,7 @@ function newGame() {
  * accordingly. Calls the newRound function with the adjusted
  * difficulty setting
  */
-function selectLevel(gameData) {
+function selectLevel() {
   // Set contents for popup area:
   let levels = ["Beginner", "Intermediate", "Advanced"];
   let title = "Choose your level";
@@ -93,7 +97,7 @@ function selectLevel(gameData) {
   }
 }
 
-function newRound(gameData) {
+function newRound() {
   console.log("New Round started with the following difficulty: " + gameData.difficulty);
   if (gameData.round === 1) {
     // Set contents for popup area:
@@ -109,12 +113,12 @@ function newRound(gameData) {
     const button = document.getElementById("start-first-round-button");
     button.addEventListener("click", function () {
       hidePopup();
-      gameData = selectTrack(gameData, allTracks);
-      let taskInstruments = setupInstruments(gameData, allInstruments);
+      gameData = selectTrack(allTracks);
+      let taskInstruments = setupInstruments(allInstruments);
       console.log(taskInstruments);
       setupTask(taskInstruments);
-      playAudio(gameData);
-      countdownTimer(gameData);
+      playAudio();
+      countdownTimer();
     });
   }
 }
@@ -144,7 +148,7 @@ function hidePopup() {
 /**
  * Select a random track from the allTracks array
  */
-function selectTrack(gameData, allTracks) {
+function selectTrack(allTracks) {
   // Set maximum number of Instruments according to difficulty
   const instrumentCountMax =
     gameData.difficulty < 10
@@ -183,7 +187,7 @@ function selectTrack(gameData, allTracks) {
  * additional instruments to be displayed as a list. Add
  * event listeners to the list items
  */
-function setupInstruments(gameData, allInstruments) {
+function setupInstruments(allInstruments) {
   // Look for track instruments in allInstruments array and store them in trackInstruments.
   // Adapted from: https://bobbyhadz.com/blog/javascript-get-difference-between-two-arrays-of-objects
   let trackInstruments = allInstruments.filter((item2) => {
@@ -269,7 +273,7 @@ function setupTask(taskInstruments) {
 /**
  * Play the audio file specified in the JSON object.
  */
-function playAudio(gameData) {
+function playAudio() {
   // Play audio file. Adapted from https://stackoverflow.com/questions/52575143/play-an-audio-file-in-javascript
   let audioFile = "assets/audio/" + gameData.currentTrack.file;
   let audio = new Audio(audioFile);
@@ -287,7 +291,7 @@ function playAudio(gameData) {
  * of instruments and display progress bar.
  * Call endRound function when time runs out.
  */
-function countdownTimer(gameData) {
+function countdownTimer() {
   let defaultTime = 90000;
   let minTime = 20000;
   let maxTime = 120000;
@@ -317,15 +321,16 @@ function countdownTimer(gameData) {
 function updateScore(correct, points, clickedItem) {
   console.log("Function: updateScore");
   // Add or substract points to/from the score with wrong/right answer
-  let oldScore = parseInt(document.getElementById("score-counter").textContent);
-  let score = document.getElementById("score-counter");
-  let oldItemCount = parseInt(document.getElementById("correct-items").textContent);
+  let oldScore = gameData.score;
+  let scoreCounter = document.getElementById("score-counter");
+  let oldItemCount = gameData.itemCount;
 
   if (!clickedItem.getAttribute("data-clicked")) {
     let float = document.createElement("span");
     float.classList.add("score-float");
     clickedItem.appendChild(float);
-    score.textContent = oldScore + points;
+    gameData.score = oldScore + points;
+    scoreCounter.innerText = gameData.score;
 
     // If points is 0 no float appears
     float.textContent = points !== 0 ? points : "";
@@ -334,7 +339,8 @@ function updateScore(correct, points, clickedItem) {
     if (correct) {
       clickedItem.setAttribute("data-clicked", "true");
       // Update number of correct instruments
-      document.getElementById("correct-items").textContent = ++oldItemCount;
+      gameData.itemCount = ++oldItemCount;
+      document.getElementById("correct-items").textContent = gameData.itemCount;
       float.style.color = "yellow";
     } else {
       float.style.color = "red";
@@ -362,14 +368,15 @@ function updateScore(correct, points, clickedItem) {
   }
 }
 
-function levelUp() {
-  console.log("Function: levelUp");
-  // If there were no mistakes made in several rounds increase the difficulty.
-}
 function endRound() {
   console.log("Function: endRound");
   // Displays a popup with the results of the round and some information on the piece of music
   // Call the gameOver function or the newRound function depending on if there are lives left.
+}
+
+function levelUp() {
+  console.log("Function: levelUp");
+  // If there were no mistakes made in several rounds increase the difficulty.
 }
 
 function gameOver() {
