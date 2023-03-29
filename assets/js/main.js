@@ -91,7 +91,7 @@ function selectLevel() {
       console.log("Difficulty set to: " + gameData.difficulty);
       button.addEventListener("click", function () {
         hidePopup();
-        newRound(gameData);
+        newRound();
       });
     });
   }
@@ -307,10 +307,9 @@ function countdownTimer() {
   let progressBar = document.getElementsByClassName("progress-bar")[0];
   progressBar.style.transitionDuration = countdownTime + "ms";
   progressBar.classList.add("progress-bar-empty");
-  setTimeout(endRound, countdownTime);
-  // Determine time depending on difficulty and number of instruments to find.
-  // Start the countdown and animates the progress bar.
-  // After the countdown is finished call the endRound function.
+
+  //Store timeout function in game data:
+  gameData.countdownTimeout = setTimeout(endRound, countdownTime);
 }
 
 /**
@@ -363,15 +362,84 @@ function updateScore(correct, points, clickedItem) {
     let totalItems = document.getElementById("total-items").innerText;
     if (correctItems === totalItems) {
       console.log("All instruments have been found");
+
       endRound();
     }
   }
 }
 
+/**
+ * Display a popup with the round results and some information
+ * on the piece of music.
+ * Call the gameOver function or the newRound function depending
+ * on if there are lives left.
+ */
 function endRound() {
   console.log("Function: endRound");
-  // Displays a popup with the results of the round and some information on the piece of music
-  // Call the gameOver function or the newRound function depending on if there are lives left.
+
+  clearTimeout(gameData.countdownTimeout);
+
+  let progressBar = document.getElementsByClassName("progress-bar")[0];
+  progressBar.style.transitionDuration = 0;
+  progressBar.classList.remove("progress-bar-empty");
+
+  levelUp();
+
+  // Prepare content for popup:
+  let track = gameData.currentTrack;
+  let title = `Round ${gameData.round} finished`;
+  let message =
+    gameData.itemCount === 0
+      ? "Better luck next time!"
+      : gameData.itemCount < track.instruments.length
+      ? "Not bad!"
+      : "Well done!";
+  let body = `
+    <p>${message}</p>
+    <p>You found ${gameData.itemCount} of ${track.instruments.length} instruments</p>
+    <h3>Track information</h3>
+    <p class="track-information">
+    <img class="composer-image" scr="assets/images/${track.image}" alt="An image of ${track.composer}">
+      <table>
+          <tbody>
+          <tr>
+            <td>Composer:</td>
+            <td>${track.composer}</td>
+          </tr>
+          <tr>
+            <td>Title:</td>
+            <td>${track.title}</td>
+          </tr>
+          <tr>
+            <td>Year:</td>
+            <td>${track.year}</td>
+          </tr>
+          <tr>
+            <td>Period:</td>
+            <td>${track.period}</td>
+          </tr>
+        </tbody>
+        </table>
+    </p>
+    <button id="end-game-button">End Game</button>
+    <button id="next-round-button">Next round</button>
+    `;
+
+  showPopup(title, body);
+
+  // Add event listeners to the buttons:
+  const endGame = document.getElementById("end-game-button");
+  const nextRound = document.getElementById("next-round-button");
+
+  endGame.addEventListener("click", function () {
+    hidePopup();
+    endGame();
+  });
+
+  nextRound.addEventListener("click", function () {
+    hidePopup();
+    newRound();
+  });
 }
 
 function levelUp() {
@@ -379,16 +447,10 @@ function levelUp() {
   // If there were no mistakes made in several rounds increase the difficulty.
 }
 
-function gameOver() {
-  console.log("Function: gameOver");
+function endGame() {
+  console.log("Function: endGame");
   // Check how many lives there are left and ends the game if there are none.
   // Call addHighscore function.
-}
-
-function abortGame() {
-  console.log("Function: abortGame");
-  // Display a warning and go to home screen if users confirms
-  // call addHighscore function
 }
 
 function addHighscore() {
