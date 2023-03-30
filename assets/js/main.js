@@ -100,6 +100,9 @@ function selectLevel() {
 
 function newRound() {
   console.log("New Round started with the following difficulty: " + gameData.difficulty);
+  if (gameData.currentTrack.audio) {
+    stopAudio();
+  }
   if (gameData.round === 1) {
     // Set contents for popup area:
     let title = "Round 1";
@@ -304,14 +307,47 @@ function playAudio() {
   console.log("Function: playAudio");
   // Play audio file. Adapted from https://stackoverflow.com/questions/52575143/play-an-audio-file-in-javascript
   let audioFile = "assets/audio/" + gameData.currentTrack.file;
-  let audio = new Audio(audioFile);
-  audio.play();
+  gameData.currentTrack.audio = new Audio(audioFile);
+  gameData.currentTrack.audio.play();
   console.log("Audio file playing: " + audioFile);
   // Throw an error if audio file is not available. Solution found at https://www.w3schools.com/tags/av_event_error.asp#gsc.tab=0
-  audio.onerror = function () {
+  gameData.currentTrack.audio.onerror = function () {
     console.log("Error: Audio file not available. Starting new round!");
     newRound();
   };
+}
+
+/** Stop current audio playback
+ * Source: https://thewebdev.info/2021/10/14/how-to-playback-html-audio-with-fade-in-and-fade-out-with-javascript/
+ */
+function stopAudio() {
+  let audio = gameData.currentTrack.audio;
+  const fadeAudio = setInterval(() => {
+    if (audio.volume !== 0) {
+      audio.volume -= 0.1;
+    }
+
+    if (audio.volume === 0.01) {
+      clearInterval(fadeAudio);
+      audio.pause();
+    }
+  }, 50);
+}
+
+/**
+ * Reduce audio Volume
+ */
+function fadeAudio() {
+  let audio = gameData.currentTrack.audio;
+  const fadeAudio = setInterval(() => {
+    if (audio.volume !== 0) {
+      audio.volume -= 0.1;
+    }
+
+    if (audio.volume < 0.5) {
+      clearInterval(fadeAudio);
+    }
+  }, 100);
 }
 
 /**
@@ -407,6 +443,7 @@ function endRound() {
   console.log("Function: endRound");
 
   clearCountdown();
+  fadeAudio();
 
   if (gameData.itemCount === 0) {
     gameData.lives--;
@@ -545,6 +582,7 @@ function cleanupTask() {
  */
 function endGame() {
   console.log("Function: endGame");
+  stopAudio();
   let title = "Game Over";
   let body = `
       <p class="final-score">Congratulations! Your final score is: ${gameData.score}</p>
