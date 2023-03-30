@@ -380,8 +380,14 @@ function endRound() {
   clearTimeout(gameData.countdownTimeout);
 
   let progressBar = document.getElementsByClassName("progress-bar")[0];
-  progressBar.style.transitionDuration = 0;
+  progressBar.style.transitionDuration = "0s";
   progressBar.classList.remove("progress-bar-empty");
+
+  if (gameData.itemCount === 0) {
+    gameData.lives--;
+  }
+  let livesCounter = document.getElementById("lives-counter");
+  livesCounter.innerText = gameData.lives;
 
   levelUp();
 
@@ -389,11 +395,14 @@ function endRound() {
   let track = gameData.currentTrack;
   let title = `Round ${gameData.round} finished`;
   let message =
-    gameData.itemCount === 0
+    gameData.lives === 0
+      ? "No more lives! Game Over!"
+      : gameData.itemCount === 0
       ? "Better luck next time!"
       : gameData.itemCount < track.instruments.length
       ? "Not bad!"
       : "Well done!";
+  let nextRoundbutton = gameData.lives !== 0 ? `<button id="next-round-button">Next round</button>` : "";
   let body = `
     <p>${message}</p>
     <p>You found ${gameData.itemCount} of ${track.instruments.length} instruments</p>
@@ -422,21 +431,41 @@ function endRound() {
         </table>
     </p>
     <button id="end-game-button">End Game</button>
-    <button id="next-round-button">Next round</button>
+    ${nextRoundbutton}
     `;
 
   showPopup(title, body);
 
   // Add event listeners to the buttons:
-  const endGame = document.getElementById("end-game-button");
-  const nextRound = document.getElementById("next-round-button");
+  const endGameButton = document.getElementById("end-game-button");
+  const nextRoundButton = document.getElementById("next-round-button");
 
-  endGame.addEventListener("click", function () {
+  endGameButton.addEventListener("click", function () {
     hidePopup();
-    endGame();
+    let title = "End Game?";
+    let body = `
+      <p>Are you sure you want to abort the game?</p>
+      <button id="continue-game-button">No</button>
+      <button id="end-game-button">Yes</button>
+      `;
+
+    showPopup(title, body);
+
+    const continueGameButton = document.getElementById("continue-game-button");
+    const endGameButton = document.getElementById("end-game-button");
+
+    continueGameButton.addEventListener("click", function () {
+      hidePopup();
+      newRound();
+    });
+
+    endGameButton.addEventListener("click", function () {
+      hidePopup();
+      endGame();
+    });
   });
 
-  nextRound.addEventListener("click", function () {
+  nextRoundButton.addEventListener("click", function () {
     hidePopup();
     newRound();
   });
@@ -447,10 +476,32 @@ function levelUp() {
   // If there were no mistakes made in several rounds increase the difficulty.
 }
 
+/**
+ * Check if Game has been ended by user or by game over condition
+ * and display final popups.
+ */
 function endGame() {
-  console.log("Function: endGame");
-  // Check how many lives there are left and ends the game if there are none.
-  // Call addHighscore function.
+  let title = "Game Over";
+  let body = `
+      <p class="final-score">Congratulations! Your final score is: ${gameData.score}</p>
+      <button id="go-home-button">Go Home</button>
+      <button id="new-game-button">Start New Game</button>
+      `;
+
+  showPopup(title, body);
+
+  const goHomeButton = document.getElementById("go-home-button");
+  const newGameButton = document.getElementById("new-game-button");
+
+  goHomeButton.addEventListener("click", function () {
+    // Go to home screen, source: https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+    window.location.replace("/index.html");
+  });
+
+  newGameButton.addEventListener("click", function () {
+    hidePopup();
+    newGame();
+  });
 }
 
 function addHighscore() {
