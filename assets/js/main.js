@@ -21,6 +21,12 @@ let gameData = {};
 
 // Wait for DOM content to load, then start the game
 document.addEventListener("DOMContentLoaded", function () {
+  // Ask for confirmation before leaving or refreshing the page
+  // Source: https://stackoverflow.com/questions/3221161/how-to-pop-up-an-alert-box-when-the-browsers-refresh-button-is-clicked
+  window.onbeforeunload = function () {
+    return "Your progress will be lost if you leave the page, are you sure?";
+  };
+
   newGame();
 });
 
@@ -501,27 +507,7 @@ function endRound() {
   endGameButton.addEventListener("click", function () {
     if (gameData.lives > 0) {
       hidePopup();
-      let title = "End Game?";
-      let body = `
-      <p>Are you sure you want to abort the game?</p>
-      <button id="continue-game-button">No, continue</button>
-      <button id="end-game-button">Yes, I'm sure</button>
-      `;
-
-      showPopup(title, body);
-
-      const continueGameButton = document.getElementById("continue-game-button");
-      const endGameButton = document.getElementById("end-game-button");
-
-      continueGameButton.addEventListener("click", function () {
-        hidePopup();
-        newRound();
-      });
-
-      endGameButton.addEventListener("click", function () {
-        hidePopup();
-        endGame();
-      });
+      confirmEnd();
     } else {
       endGame();
     }
@@ -534,6 +520,33 @@ function endRound() {
 
   cleanupTask();
   gameData.round++;
+}
+
+/**
+ * Ask for confirmation before ending game
+ */
+function confirmEnd() {
+  let title = "End Game?";
+  let body = `
+      <p>Are you sure you want to abort the game?</p>
+      <button id="continue-game-button">No, continue</button>
+      <button id="end-game-button">Yes, I'm sure</button>
+      `;
+
+  showPopup(title, body);
+
+  const continueGameButton = document.getElementById("continue-game-button");
+  const endGameButton = document.getElementById("end-game-button");
+
+  continueGameButton.addEventListener("click", function () {
+    hidePopup();
+    newRound();
+  });
+
+  endGameButton.addEventListener("click", function () {
+    hidePopup();
+    endGame();
+  });
 }
 
 /**
@@ -603,7 +616,7 @@ function endGame() {
   stopAudio();
   let title = "Game Over";
   let body = `
-      <p class="final-score">Congratulations! Your final score is: ${gameData.score}</p>
+      <p class="final-score">Final score: ${gameData.score}</p>
       <button id="go-home-button">Go Home</button>
       <button id="new-game-button">Start New Game</button>
       `;
