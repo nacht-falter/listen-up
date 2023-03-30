@@ -21,23 +21,8 @@ let gameData = {};
 
 // Wait for DOM content to load, then start the game
 document.addEventListener("DOMContentLoaded", function () {
-  // Start tutorial if the game is run for the first time. Check in localStorage if tutorial has been completed before.
-  // Local storage functionality from https://www.w3schools.com/html/html5_webstorage.asp
-  if (!localStorage.getItem("tutorialCompleted")) {
-    startTutorial();
-    localStorage.setItem("tutorialCompleted", "true");
-  } else {
-    newGame();
-  }
-});
-
-/**
- * Display a popup containing the tutorial.
- */
-function startTutorial() {
-  // TODO: Display tutorial
   newGame();
-}
+});
 
 /**
  * Function to start a new game and initialize the game data.
@@ -45,6 +30,7 @@ function startTutorial() {
 function newGame() {
   gameData = {
     round: 1,
+    perfectRounds: 0,
     score: 0,
     lives: 3,
     playedTracks: [],
@@ -327,7 +313,7 @@ function stopAudio() {
       audio.volume -= 0.1;
     }
 
-    if (audio.volume === 0.01) {
+    if (audio.volume < 0.02) {
       clearInterval(fadeAudio);
       audio.pause();
     }
@@ -428,7 +414,10 @@ function updateScore(correct, points, clickedItem) {
     if (correctItems === totalItems) {
       console.log("All instruments have been found");
 
-      endRound();
+      // Increment perfect rounds counter if all instruments were found
+      gameData.perfectRounds++;
+
+      levelUp();
     }
   }
 }
@@ -445,20 +434,25 @@ function endRound() {
   clearCountdown();
   fadeAudio();
 
+  let track = gameData.currentTrack;
+
+  // Reset perfect rounds if there were mistakes
+  if (gameData.itemCount < track.instruments.length) {
+    gameData.perfectRounds = 0;
+  }
+
+  // Decrement lives if no instruments were found
   if (gameData.itemCount === 0) {
     gameData.lives--;
   }
   let livesCounter = document.getElementById("lives-counter");
   livesCounter.innerText = gameData.lives;
 
-  levelUp();
-
   // Prepare content for popup:
-  let track = gameData.currentTrack;
   let title = `Round ${gameData.round} finished`;
   let message =
     gameData.lives === 0
-      ? "No more lives! Game Over!"
+      ? "No more lives ... Game Over!"
       : gameData.itemCount === 0
       ? "Better luck next time!"
       : gameData.itemCount < track.instruments.length
@@ -542,9 +536,33 @@ function endRound() {
   gameData.round++;
 }
 
+/**
+ * Increase difficulty if there were no mistakes in 3 rounds.
+ */
 function levelUp() {
   console.log("Function: levelUp");
-  // If there were no mistakes made in several rounds increase the difficulty.
+  if (gameData.perfectRounds % 3 === 0) {
+    gameData.difficulty += 5;
+
+    // Prepare popup
+    let title = "Level up!";
+    let body = `
+      <p class="final-score">Well done!</p>
+      <p class="final-score">Difficulty increased</p>
+      <button id="continue-button">Continue</button>
+      `;
+
+    showPopup(title, body);
+
+    const continueButton = document.getElementById("continue-button");
+
+    continueButton.addEventListener("click", function () {
+      hidePopup();
+      endRound();
+    });
+  } else {
+    endRound();
+  }
 }
 
 /**
@@ -577,8 +595,8 @@ function cleanupTask() {
 }
 
 /**
- * Check if Game has been ended by user or by game over condition
- * and display final popups.
+ * Display end screen and offer to go to home page or
+ * start new Game
  */
 function endGame() {
   console.log("Function: endGame");
@@ -604,20 +622,4 @@ function endGame() {
     hidePopup();
     newGame();
   });
-}
-
-function addHighscore() {
-  console.log("Function: addHighscore");
-  // Ask for name and add result to highscore list in localStorage
-}
-
-function pauseGame() {
-  console.log("Function: pauseGame");
-  // Display the pause popup and resume, restart or end the game according to user selection.
-}
-
-function changSettings() {
-  console.log("Function: changSettings");
-  // Display settings popup and adjust them according to user selection.
-  // Write values to local storage.
 }
