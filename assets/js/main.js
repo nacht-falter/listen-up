@@ -229,14 +229,27 @@ function setupInstruments(allInstruments) {
 
   // Shuffle the array with all instruments and select the appropriate number of additional instruments
   // Adapted from https://stackoverflow.com/questions/19269545/how-to-get-a-number-of-random-elements-from-an-array
-  let additionalInstruments = filteredInstruments.sort(() => 0.5 - Math.random()).slice(0, additionalInstrumentCount);
+  let additionalInstruments = shuffleArray(filteredInstruments).slice(0, additionalInstrumentCount);
+
   console.log("Additional Instruments");
   console.table(additionalInstruments);
 
-  let taskInstruments = trackInstruments.concat(additionalInstruments).sort(() => 0.5 - Math.random());
+  let taskInstruments = shuffleArray(trackInstruments.concat(additionalInstruments));
   console.log("Task Instruments");
   console.table(taskInstruments);
   return taskInstruments;
+}
+
+/**
+ * Shuffle array with Fisher-Yates algorithm.
+ * Source: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+ */
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 /**
