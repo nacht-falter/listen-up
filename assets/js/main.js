@@ -377,11 +377,7 @@ function updateScore(correct, points, clickedItem) {
 function endRound() {
   console.log("Function: endRound");
 
-  clearTimeout(gameData.countdownTimeout);
-
-  let progressBar = document.getElementsByClassName("progress-bar")[0];
-  progressBar.style.transitionDuration = "0s";
-  progressBar.classList.remove("progress-bar-empty");
+  clearCountdown();
 
   if (gameData.itemCount === 0) {
     gameData.lives--;
@@ -469,11 +465,35 @@ function endRound() {
     hidePopup();
     newRound();
   });
+
+  cleanupTask();
+  gameData.round++;
 }
 
 function levelUp() {
   console.log("Function: levelUp");
   // If there were no mistakes made in several rounds increase the difficulty.
+}
+
+/**
+ * Reset countdown and progress-bar
+ */
+function clearCountdown() {
+  clearTimeout(gameData.countdownTimeout);
+
+  let progressBar = document.getElementsByClassName("progress-bar")[0];
+  progressBar.style.transitionDuration = "0s";
+  progressBar.classList.remove("progress-bar-empty");
+}
+
+/**
+ * Reset task area and item count
+ */
+function cleanupTask() {
+  document.getElementById("all-answers").textContent = "";
+  gameData.itemCount = 0;
+  document.getElementById("correct-items").innerText = 0;
+  document.getElementById("total-items").innerText = 0;
 }
 
 /**
