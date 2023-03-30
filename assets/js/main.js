@@ -175,9 +175,13 @@ function selectTrack(allTracks) {
   let tracks = allTracks.filter((item) => item.instruments.length <= instrumentCountMax);
 
   // Generate random number. Check if it has already been used and generate another if necessary:
+  // If all available tracks have been played reset playedTracks
   let rnd;
   do {
     rnd = Math.floor(Math.random() * tracks.length);
+    if (tracks.length === gameData.playedTracks.length) {
+      gameData.playedTracks = [];
+    }
   } while (gameData.playedTracks.includes(rnd));
 
   let track = tracks[rnd];
@@ -506,6 +510,11 @@ function cleanupTask() {
   console.log("Function: cleanupTask");
   gameData.itemCount = 0;
 
+  // Remove 'correct' flags from allInstruments array
+  for (let item of allInstruments) {
+    item.correct = "";
+  }
+
   document.getElementById("all-answers").textContent = "";
   document.getElementById("correct-items").innerText = 0;
   document.getElementById("total-items").innerText = 0;
@@ -554,4 +563,4 @@ function changSettings() {
   console.log("Function: changSettings");
   // Display settings popup and adjust them according to user selection.
   // Write values to local storage.
-k
+}
