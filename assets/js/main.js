@@ -62,6 +62,7 @@ function newGame() {
  * difficulty setting
  */
 function selectLevel() {
+  console.log("Function: selectLevel");
   // Set contents for popup area:
   let levels = ["Beginner", "Intermediate", "Advanced"];
   let title = "Choose your level";
@@ -113,14 +114,21 @@ function newRound() {
     const button = document.getElementById("start-first-round-button");
     button.addEventListener("click", function () {
       hidePopup();
-      gameData = selectTrack(allTracks);
-      let taskInstruments = setupInstruments(allInstruments);
-      console.log(taskInstruments);
-      setupTask(taskInstruments);
-      playAudio();
-      countdownTimer();
+      startRound();
     });
+  } else {
+    startRound();
   }
+}
+
+function startRound() {
+  console.log("Function: startRound");
+  gameData = selectTrack(allTracks);
+  let taskInstruments = setupInstruments(allInstruments);
+  console.log(taskInstruments);
+  setupTask(taskInstruments);
+  playAudio();
+  countdownTimer();
 }
 
 /**
@@ -149,6 +157,7 @@ function hidePopup() {
  * Select a random track from the allTracks array
  */
 function selectTrack(allTracks) {
+  console.log("Function: selectTrack");
   // Set maximum number of Instruments according to difficulty
   const instrumentCountMax =
     gameData.difficulty < 10
@@ -188,6 +197,7 @@ function selectTrack(allTracks) {
  * event listeners to the list items
  */
 function setupInstruments(allInstruments) {
+  console.log("Function: setupInstruments");
   // Look for track instruments in allInstruments array and store them in trackInstruments.
   // Adapted from: https://bobbyhadz.com/blog/javascript-get-difference-between-two-arrays-of-objects
   let trackInstruments = allInstruments.filter((item2) => {
@@ -274,6 +284,7 @@ function setupTask(taskInstruments) {
  * Play the audio file specified in the JSON object.
  */
 function playAudio() {
+  console.log("Function: playAudio");
   // Play audio file. Adapted from https://stackoverflow.com/questions/52575143/play-an-audio-file-in-javascript
   let audioFile = "assets/audio/" + gameData.currentTrack.file;
   let audio = new Audio(audioFile);
@@ -292,6 +303,7 @@ function playAudio() {
  * Call endRound function when time runs out.
  */
 function countdownTimer() {
+  console.log("Function: countdownTimer");
   let defaultTime = 90000;
   let minTime = 20000;
   let maxTime = 120000;
@@ -479,6 +491,7 @@ function levelUp() {
  * Reset countdown and progress-bar
  */
 function clearCountdown() {
+  console.log("Function: clearCountdown");
   clearTimeout(gameData.countdownTimeout);
 
   let progressBar = document.getElementsByClassName("progress-bar")[0];
@@ -490,8 +503,10 @@ function clearCountdown() {
  * Reset task area and item count
  */
 function cleanupTask() {
-  document.getElementById("all-answers").textContent = "";
+  console.log("Function: cleanupTask");
   gameData.itemCount = 0;
+
+  document.getElementById("all-answers").textContent = "";
   document.getElementById("correct-items").innerText = 0;
   document.getElementById("total-items").innerText = 0;
 }
@@ -501,6 +516,7 @@ function cleanupTask() {
  * and display final popups.
  */
 function endGame() {
+  console.log("Function: endGame");
   let title = "Game Over";
   let body = `
       <p class="final-score">Congratulations! Your final score is: ${gameData.score}</p>
@@ -538,4 +554,4 @@ function changSettings() {
   console.log("Function: changSettings");
   // Display settings popup and adjust them according to user selection.
   // Write values to local storage.
-}
+k
