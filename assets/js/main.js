@@ -418,6 +418,8 @@ function endRound() {
   let body = `
     <p>${message}</p>
     <p>You found ${gameData.itemCount} of ${track.instruments.length} instruments</p>
+    <p>Score: ${gameData.score} | Lives: ${gameData.lives}</p>
+    <hr>
     <h3>Track information</h3>
     <p class="track-information">
     <img class="composer-image" scr="assets/images/${track.image}" alt="An image of ${track.composer}">
@@ -453,28 +455,32 @@ function endRound() {
   const nextRoundButton = document.getElementById("next-round-button");
 
   endGameButton.addEventListener("click", function () {
-    hidePopup();
-    let title = "End Game?";
-    let body = `
+    if (gameData.lives > 0) {
+      hidePopup();
+      let title = "End Game?";
+      let body = `
       <p>Are you sure you want to abort the game?</p>
-      <button id="continue-game-button">No</button>
-      <button id="end-game-button">Yes</button>
+      <button id="continue-game-button">No, continue</button>
+      <button id="end-game-button">Yes, I'm sure</button>
       `;
 
-    showPopup(title, body);
+      showPopup(title, body);
 
-    const continueGameButton = document.getElementById("continue-game-button");
-    const endGameButton = document.getElementById("end-game-button");
+      const continueGameButton = document.getElementById("continue-game-button");
+      const endGameButton = document.getElementById("end-game-button");
 
-    continueGameButton.addEventListener("click", function () {
-      hidePopup();
-      newRound();
-    });
+      continueGameButton.addEventListener("click", function () {
+        hidePopup();
+        newRound();
+      });
 
-    endGameButton.addEventListener("click", function () {
-      hidePopup();
+      endGameButton.addEventListener("click", function () {
+        hidePopup();
+        endGame();
+      });
+    } else {
       endGame();
-    });
+    }
   });
 
   nextRoundButton.addEventListener("click", function () {
