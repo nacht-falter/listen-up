@@ -59,10 +59,25 @@ function selectLevel() {
   let levels = ["Beginner", "Intermediate", "Advanced"];
   let title = "Choose your level";
   let body = `
-    <ul class="select-level">
-      <li class="level-list-item">${levels[0]}</li>
-      <li class="level-list-item">${levels[1]}</li>
-      <li class="level-list-item">${levels[2]}</li>
+    <ul class="select-level flex-container">
+      <li class="level-list-item" data-level="Beginner">
+        <figure>
+          <img class="level-image-1" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">
+          <figcaption class="level-name">${levels[0]}</figcaption>
+        </figure>
+      </li>
+      <li class="level-list-item" data-level="Intermediate">
+        <figure>
+          <img " src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart">
+          <figcaption class>${levels[1]}</figcaption>
+        </figure>
+      </li>
+      <li class="level-list-item" data-level="Advanced">
+        <figure>
+          <img class="level-image-3" src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">
+          <figcaption>${levels[2]}</figcaption>
+        </figure>
+      </li>
     </ul>
     <button id="confirm-level-button" disabled>Confirm</button>
     `;
@@ -75,8 +90,12 @@ function selectLevel() {
 
   for (let item of items) {
     item.addEventListener("click", function () {
+      for (let i of items) {
+        i.classList.remove("selected-item");
+      }
       this.classList.add("selected-item");
-      let level = this.textContent;
+      let level = this.getAttribute("data-level");
+      console.log(level);
       gameData.level = level;
       // Set initial difficulty according to selected level:
       gameData.difficulty = level === levels[2] ? 20 : level === levels[1] ? 10 : 1;
