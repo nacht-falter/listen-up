@@ -489,15 +489,13 @@ function endRound() {
       : gameData.itemCount < track.instruments.length
       ? "Not bad!"
       : "Well done!";
-  let nextRoundbutton = gameData.lives !== 0 ? `<button id="next-round-button">Next round</button>` : "";
   let body = `
-    <p>${message}</p>
+    <p><strong>${message}</strong></p>
     <p>You found ${gameData.itemCount} of ${track.instruments.length} instruments</p>
-    <p>Score: ${gameData.score} | Lives: ${gameData.lives}</p>
-    <hr>
-    <h3>Track information</h3>
-    <p class="track-information">
-    <img class="composer-image" scr="assets/images/${track.image}" alt="An image of ${track.composer}">
+    <p class="large-text">Score: ${gameData.score} | Lives: ${gameData.lives}</p>
+    <div id="track-info">
+      <h3>Track information</h3>
+      <img class="composer-image" src="assets/images/composers/${track.image}" alt="An image of ${track.composer}">
       <table>
           <tbody>
           <tr>
@@ -517,10 +515,10 @@ function endRound() {
             <td>${track.period}</td>
           </tr>
         </tbody>
-        </table>
-    </p>
+      </table>
+    </div>
     <button id="end-game-button">End Game</button>
-    ${nextRoundbutton}
+    <button id="next-round-button">Next round</button>
     `;
 
   showPopup(title, body);
@@ -538,10 +536,14 @@ function endRound() {
     }
   });
 
-  nextRoundButton.addEventListener("click", function () {
-    hidePopup();
-    newRound();
-  });
+  if (gameData.lives === 0) {
+    nextRoundButton.remove();
+  } else {
+    nextRoundButton.addEventListener("click", function () {
+      hidePopup();
+      newRound();
+    });
+  }
 
   cleanupTask();
   gameData.round++;
@@ -640,6 +642,7 @@ function cleanupTask() {
 function endGame() {
   console.log("Function: endGame");
   stopAudio();
+  gameData.lives = 3;
   let title = "Game Over";
   let body = `
       <p class="final-score">Final score: ${gameData.score}</p>
@@ -654,6 +657,7 @@ function endGame() {
 
   goHomeButton.addEventListener("click", function () {
     // Go to home screen, source: https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+    window.onbeforeunload = "";
     window.location.replace("/index.html");
   });
 
