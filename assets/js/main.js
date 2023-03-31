@@ -332,16 +332,20 @@ function playAudio() {
  */
 function stopAudio() {
   let audio = gameData.currentTrack.audio;
-  const fadeAudio = setInterval(() => {
-    if (audio.volume !== 0) {
-      audio.volume -= 0.1;
-    }
+  if (navigator.platform === "iPhone" || "iPad") {
+    audio.pause();
+  } else {
+    const fadeAudio = setInterval(() => {
+      if (audio.volume !== 0) {
+        audio.volume -= 0.1;
+      }
 
-    if (audio.volume < 0.02) {
-      clearInterval(fadeAudio);
-      audio.pause();
-    }
-  }, 50);
+      if (audio.volume < 0.02) {
+        clearInterval(fadeAudio);
+        audio.pause();
+      }
+    }, 50);
+  }
 }
 
 /**
@@ -349,15 +353,17 @@ function stopAudio() {
  */
 function fadeAudio() {
   let audio = gameData.currentTrack.audio;
-  const fadeAudio = setInterval(() => {
-    if (audio.volume !== 0) {
-      audio.volume -= 0.1;
-    }
+  if (navigator.platform !== "iPhone" || "iPad") {
+    const fadeAudio = setInterval(() => {
+      if (audio.volume !== 0) {
+        audio.volume -= 0.1;
+      }
 
-    if (audio.volume < 0.5) {
-      clearInterval(fadeAudio);
-    }
-  }, 100);
+      if (audio.volume < 0.5) {
+        clearInterval(fadeAudio);
+      }
+    }, 100);
+  }
 }
 
 /**
