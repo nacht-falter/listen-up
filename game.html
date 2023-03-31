@@ -22,31 +22,26 @@
     <h1>Listen Up</h1>
   </header>
   <main>
-    <div id="info-area">
-      <div id="task-area" class="flex-container">
-        <h2>Identify Instruments</h2>
-        <p>Which musical instruments can you hear?</p>
-      </div>
-      <div id="countdown-area" class="flex-container">
-        <div class="progress-bar-frame">
-          <div class="progress-bar"></div>
-        </div>
-      </div>
+    <div id="info">
+      <h2>Identify Instruments</h2>
+      <p>Which musical instruments can you hear?</p>
       <div id="score-area" class="flex-container">
-        <p id="score">Score: <span id="score-counter">0</span></p>
-        <p>You have correctly identified <span id="correct-items">0</span> of <span id="total-items">0</span>
-          instruments.</p>
-          <p id="lives">Lives <span id="lives-counter">3</span></p>
+        <p id="score" class="large-text">Score: <span id="score-counter">0</span> | Lives: <span id="lives-counter">3</span></p>
+        <p><span id="correct-items">0</span> of <span id="total-items">0</span> instruments found.</p>
       </div>
     </div>
-    <div id="game-area">
-      <div id="options-area">
-        <ul id="all-answers" class="grid-container"></ul>
+    <div id="countdown-area" class="flex-container">
+      <div class="progress-bar-frame">
+        <div class="progress-bar"></div>
       </div>
+    </div>
+    <div id="options-area">
+      <ul id="all-answers" class="grid-container"></ul>
     </div>
   </main>
   <footer>
-    <!--Buttons for Home, pause game and settings-->
+    <a href="/index.html" title="Go home" aria-label="Go to home screen">Home</a>
+    <a href="./game.html" title="Restart game" aria-label="Link to restart the game">Restart Game</a>
   </footer>
   <script src="assets/js/main.js"></script>
 </body>
