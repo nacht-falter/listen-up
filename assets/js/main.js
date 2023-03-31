@@ -387,6 +387,7 @@ function countdownTimer() {
   console.log("Countdown time: " + countdownTime);
   let progressBar = document.getElementsByClassName("progress-bar")[0];
   progressBar.style.transitionDuration = countdownTime + "ms";
+  progressBar.style.animationDuration = countdownTime + "ms";
   progressBar.classList.add("progress-bar-empty");
 
   //Store timeout function in game data:
