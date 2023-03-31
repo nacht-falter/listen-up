@@ -1,6 +1,6 @@
 [
   {
-    "file": "Claude Debussy - La Mer - 2 - Jeux de vagues.mp3",
+    "file": "claude_debussy-la_mer-2-jeux_de_vagues.mp3",
     "title": "La Mer, Part II. Jeux de Vagues",
     "composer": "Claude Debussy",
     "image": "debussy.png",
@@ -27,7 +27,7 @@
     ]
   },
   {
-    "file": "Claudio Monteverdi - Lamento della ninfa.mp3",
+    "file": "claudio_monteverdi-lamento_della_ninfa.mp3",
     "title": "Lamento Della Ninfa",
     "composer": "Claudio Monteverdi",
     "image": "monteverdi.png",
@@ -37,7 +37,7 @@
     "instruments": ["Female voice", "Male voice", "Theorbo", "Viola da gamba"]
   },
   {
-    "file": "Claude Debussy - Cello Sonata - I. Prologue - lent.mp3",
+    "file": "claude_debussy-cello_sonata-i._prologue-lent.mp3",
     "title": "Cello Sonata - I. Prologue - lent",
     "composer": "Claude Debussy",
     "image": "debussy.png",
@@ -47,7 +47,7 @@
     "instruments": ["Cello", "Piano"]
   },
   {
-    "file": "Clara Schumann - Scherzo no. 2, Op. 14.mp3",
+    "file": "clara_schumann-scherzo_no._2,_op._14.mp3",
     "title": "Scherzo, Op. 14",
     "composer": "Clara Schumann",
     "image": "clara-schumann.png",
@@ -57,7 +57,7 @@
     "instruments": ["Piano"]
   },
   {
-    "file": "Fanny Hensel - Piano Trio, Op. 11.mp3",
+    "file": "fanny_hensel-piano_trio,_op._11.mp3",
     "title": "Piano Trio, Op. 11",
     "composer": "Fanny Hensel",
     "image": "hensel.png",
@@ -67,7 +67,7 @@
     "instruments": ["Piano", "Violin", "Cello"]
   },
   {
-    "file": "Claudio Monteverdi - Signor, quell'infelice.mp3",
+    "file": "claudio_monteverdi-signor,_quell'infelice.mp3",
     "title": "Signor, quell'infelice (L'Orfeo)",
     "composer": "Claudio Monteverdi",
     "image": "monteverdi.png",
@@ -77,7 +77,7 @@
     "instruments": ["Female voice", "Harpsichord"]
   },
   {
-    "file": "Claude Debussy - Fantoches.mp3",
+    "file": "claude_debussy-fantoches.mp3",
     "title": "Fantoches (Fêtes galantes)",
     "composer": "Claude Debussy",
     "image": "debussy.png",
@@ -87,7 +87,7 @@
     "instruments": ["Piano", "Female voice"]
   },
   {
-    "file": "J.S. Bach - I. Allemanda.mp3",
+    "file": "j.s._bach-i._allemanda.mp3",
     "title": "I. Allemanda (Partita No. 1 in B minor BWV 1002)",
     "composer": "Johann Sebastian Bach",
     "image": "bach.png",
