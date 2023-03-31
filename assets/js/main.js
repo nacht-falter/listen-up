@@ -235,8 +235,7 @@ function setupInstruments(allInstruments) {
   console.table(trackInstruments);
 
   // Set the amount of instruments to display according to difficulty:
-  let totalInstrumentsCount =
-    trackInstruments.length === 1 ? 9 : trackInstruments.length < 5 ? 12 : trackInstruments.length < 8 ? 16 : 24;
+  let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 8 ? 16 : 24;
 
   // Calculate the amount of additonal instruments to display:
   let additionalInstrumentCount = totalInstrumentsCount - trackInstruments.length;
@@ -624,6 +623,7 @@ function cleanupTask() {
   document.getElementById("all-answers").textContent = "";
   document.getElementById("correct-items").innerText = 0;
   document.getElementById("total-items").innerText = 0;
+  document.getElementById("all-answers").classList.remove("grid-layout-1", "grid-layout-2", "grid-layout-3");
 }
 
 /**
