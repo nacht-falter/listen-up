@@ -53,10 +53,6 @@ h2 {
   padding-top: 2vh;
 }
 
-h3 {
-  padding-top: 2vh;
-}
-
 p {
   padding: 1vh 0;
 }
@@ -117,6 +113,17 @@ footer {
   overflow: scroll;
 }
 
+@media only screen and (min-width: 700px) {
+  main > * {
+    margin-top: 2vh;
+  }
+}
+
+@media only screen and (min-width: 700px) and (min-height: 900px) {
+  main > * {
+    margin-top: 5vh;
+  }
+}
 /*--------------------------------
   FLEXBOX AND GRID LAYOUT STYLES
   --------------------------------*/
@@ -147,6 +154,34 @@ footer {
   grid-template-columns: repeat(4, 1fr);
 }
 
+@media only screen and (min-width: 400px) {
+  .grid-layout-1 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-layout-2 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-layout-3 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .grid-layout-1 {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .grid-layout-2 {
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .grid-layout-3 {
+    grid-template-columns: repeat(8, 1fr);
+  }
+}
+
 .grid-item {
   aspect-ratio: 1;
   border-radius: 7px;
@@ -170,9 +205,18 @@ footer {
 
 .level-list-item figure {
   margin: 0 10vw;
-  min-width: 15vw;
   padding: 2vh;
   border-radius: 20px;
+}
+
+@media only screen and (min-width: 650px) {
+  .level-list-item {
+    flex: 33%;
+  }
+
+  .level-list-item figure {
+    margin: 0;
+  }
 }
 
 .selected-item figure {
@@ -330,7 +374,7 @@ footer {
   border-radius: 20px;
   width: fit-content;
   margin: 1vh auto;
-  padding: 0 5vw;
+  padding: 1vh 5vw;
 }
 
 #track-info td {
@@ -345,6 +389,12 @@ footer {
   width: auto;
   height: 10vh;
   border-radius: 7px;
+}
+
+@media only screen and (min-width: 700px) {
+  .select-level img {
+    height: 15vh;
+  }
 }
 
 .instrument-img {

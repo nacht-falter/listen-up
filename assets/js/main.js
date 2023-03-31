@@ -1,34 +1,4 @@
-// Fetch JSON data from files:
-// Source for fetch() method: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_api_fetch
-let allTracks;
-fetch("assets/json/music-library.json")
-  .then((response) => response.json())
-  .then((data) => {
-    allTracks = data;
-    console.log(allTracks);
-  });
-
-let allInstruments;
-fetch("assets/json/musical-instruments.json")
-  .then((response) => response.json())
-  .then((data) => {
-    allInstruments = data;
-    console.log(allInstruments);
-  });
-
-// Initialize variable holding the game data so that it is accessible on global scope
-let gameData = {};
-
-// Wait for DOM content to load, then start the game
-document.addEventListener("DOMContentLoaded", function () {
-  // Ask for confirmation before leaving or refreshing the page
-  // Source: https://stackoverflow.com/questions/3221161/how-to-pop-up-an-alert-box-when-the-browsers-refresh-button-is-clicked
-  window.onbeforeunload = function () {
-    return "Your progress will be lost if you leave the page, are you sure?";
-  };
-
-  newGame();
-});
+// Function declarations
 
 /**
  * Function to start a new game and initialize the game data.
@@ -54,7 +24,7 @@ function newGame() {
  * difficulty setting
  */
 function selectLevel() {
-  console.log("Function: selectLevel");
+  console.log("Function called: selectLevel");
   // Set contents for popup area:
   let levels = ["Beginner", "Intermediate", "Advanced"];
   let title = "Choose your level";
@@ -95,7 +65,6 @@ function selectLevel() {
       }
       this.classList.add("selected-item");
       let level = this.getAttribute("data-level");
-      console.log(level);
       gameData.level = level;
       // Set initial difficulty according to selected level:
       gameData.difficulty = level === levels[2] ? 20 : level === levels[1] ? 10 : 1;
@@ -109,8 +78,11 @@ function selectLevel() {
   }
 }
 
+/**
+ * Setup new round
+ */
 function newRound() {
-  console.log("New Round started with the following difficulty: " + gameData.difficulty);
+  console.log("New Round started with difficulty: " + gameData.difficulty);
   if (gameData.currentTrack.audio) {
     stopAudio();
   }
@@ -119,7 +91,7 @@ function newRound() {
     let title = "Round 1";
     let body = `
       <p>Level: ${gameData.level}</p>
-      <p>Ready?</p>
+      <p class="large-text">Ready?</p>
       <button id="start-first-round-button">Start Game</button>
     `;
 
@@ -134,12 +106,13 @@ function newRound() {
     startRound();
   }
 }
-
+/**
+ * Call the functions starting the next round
+ */
 function startRound() {
-  console.log("Function: startRound");
+  console.log("Function called: startRound");
   gameData = selectTrack(allTracks);
   let taskInstruments = setupInstruments(allInstruments);
-  console.log(taskInstruments);
   setupTask(taskInstruments);
   playAudio();
   countdownTimer();
@@ -171,7 +144,7 @@ function hidePopup() {
  * Select a random track from the allTracks array
  */
 function selectTrack(allTracks) {
-  console.log("Function: selectTrack");
+  console.log("Function called: selectTrack");
   // Set maximum number of Instruments according to difficulty
   const instrumentCountMax =
     gameData.difficulty < 10
@@ -199,7 +172,6 @@ function selectTrack(allTracks) {
   } while (gameData.playedTracks.includes(rnd));
 
   let track = tracks[rnd];
-  console.table(tracks);
   document.getElementById("total-items").textContent = track.instruments.length;
 
   // Store played track in game data to keep it from being selected again:
@@ -215,7 +187,7 @@ function selectTrack(allTracks) {
  * event listeners to the list items
  */
 function setupInstruments(allInstruments) {
-  console.log("Function: setupInstruments");
+  console.log("Function called: setupInstruments");
   // Look for track instruments in allInstruments array and store them in trackInstruments.
   // Adapted from: https://bobbyhadz.com/blog/javascript-get-difference-between-two-arrays-of-objects
   let trackInstruments = allInstruments.filter((item2) => {
@@ -231,9 +203,6 @@ function setupInstruments(allInstruments) {
   // Adapted from https://stackoverflow.com/questions/45342155/how-to-subtract-one-array-from-another-element-wise-in-javascript
   let filteredInstruments = allInstruments.filter((item) => !trackInstruments.includes(item));
 
-  console.log("Track Instruments");
-  console.table(trackInstruments);
-
   // Set the amount of instruments to display according to difficulty:
   let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 8 ? 16 : 24;
 
@@ -244,12 +213,7 @@ function setupInstruments(allInstruments) {
   // Adapted from https://stackoverflow.com/questions/19269545/how-to-get-a-number-of-random-elements-from-an-array
   let additionalInstruments = shuffleArray(filteredInstruments).slice(0, additionalInstrumentCount);
 
-  console.log("Additional Instruments");
-  console.table(additionalInstruments);
-
   let taskInstruments = shuffleArray(trackInstruments.concat(additionalInstruments));
-  console.log("Task Instruments");
-  console.table(taskInstruments);
   return taskInstruments;
 }
 
@@ -271,7 +235,7 @@ function shuffleArray(array) {
  * Add event listeners to the list items.
  */
 function setupTask(taskInstruments) {
-  console.log("Function: setupTask");
+  console.log("Function called: setupTask");
   const allAnswers = document.getElementById("all-answers");
 
   // Set the column count for grid layout:
@@ -314,7 +278,7 @@ function setupTask(taskInstruments) {
  * Play the audio file specified in the JSON object.
  */
 function playAudio() {
-  console.log("Function: playAudio");
+  console.log("Function called: playAudio");
   // Play audio file. Adapted from https://stackoverflow.com/questions/52575143/play-an-audio-file-in-javascript
   let audioFile = "assets/audio/" + gameData.currentTrack.file;
   gameData.currentTrack.audio = new Audio(audioFile);
@@ -372,7 +336,7 @@ function fadeAudio() {
  * Call endRound function when time runs out.
  */
 function countdownTimer() {
-  console.log("Function: countdownTimer");
+  console.log("Function called: countdownTimer");
   let defaultTime = 90000;
   let minTime = 20000;
   let maxTime = 120000;
@@ -400,7 +364,7 @@ function countdownTimer() {
  * Call endRound() function if all items have been found.
  */
 function updateScore(correct, points, clickedItem) {
-  console.log("Function: updateScore");
+  console.log("Function called: updateScore");
   // Add or substract points to/from the score with wrong/right answer
   let oldScore = gameData.score;
   let scoreCounter = document.getElementById("score-counter");
@@ -460,7 +424,7 @@ function updateScore(correct, points, clickedItem) {
  * on if there are lives left.
  */
 function endRound() {
-  console.log("Function: endRound");
+  console.log("Function called: endRound");
 
   clearCountdown();
   fadeAudio();
@@ -580,7 +544,7 @@ function confirmEnd() {
  * Increase difficulty if there were no mistakes in 3 rounds.
  */
 function levelUp() {
-  console.log("Function: levelUp");
+  console.log("Function called: levelUp");
   if (gameData.perfectRounds % 3 === 0) {
     gameData.difficulty += 5;
 
@@ -609,7 +573,7 @@ function levelUp() {
  * Reset countdown and progress-bar
  */
 function clearCountdown() {
-  console.log("Function: clearCountdown");
+  console.log("Function called: clearCountdown");
   clearTimeout(gameData.countdownTimeout);
 
   let progressBar = document.getElementsByClassName("progress-bar")[0];
@@ -621,7 +585,7 @@ function clearCountdown() {
  * Reset task area and item count
  */
 function cleanupTask() {
-  console.log("Function: cleanupTask");
+  console.log("Function called: cleanupTask");
   gameData.itemCount = 0;
 
   // Remove 'correct' flags from allInstruments array
@@ -640,7 +604,7 @@ function cleanupTask() {
  * start new Game
  */
 function endGame() {
-  console.log("Function: endGame");
+  console.log("Function called: endGame");
   stopAudio();
   gameData.lives = 3;
   let title = "Game Over";
@@ -666,3 +630,34 @@ function endGame() {
     newGame();
   });
 }
+
+// Start of program
+// Fetch JSON data from files:
+// Source for fetch() method: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_api_fetch
+let allTracks;
+fetch("assets/json/music-library.json")
+  .then((response) => response.json())
+  .then((data) => {
+    allTracks = data;
+  });
+
+let allInstruments;
+fetch("assets/json/musical-instruments.json")
+  .then((response) => response.json())
+  .then((data) => {
+    allInstruments = data;
+  });
+
+// Initialize variable holding the game data so that it is accessible on global scope
+let gameData = {};
+
+// Wait for DOM content to load, then start the game
+document.addEventListener("DOMContentLoaded", function () {
+  // Ask for confirmation before leaving or refreshing the page
+  // Source: https://stackoverflow.com/questions/3221161/how-to-pop-up-an-alert-box-when-the-browsers-refresh-button-is-clicked
+  window.onbeforeunload = function () {
+    return "Your progress will be lost if you leave the page, are you sure?";
+  };
+
+  newGame();
+});
