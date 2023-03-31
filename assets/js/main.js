@@ -30,19 +30,19 @@ function selectLevel() {
   let title = "Choose your level";
   let body = `
     <ul class="select-level flex-container">
-      <li class="level-list-item" data-level="Beginner">
+      <li class="level-list-item" data-level="${levels[0]}">
         <figure>
           <img class="level-image-1" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">
           <figcaption class="level-name">${levels[0]}</figcaption>
         </figure>
       </li>
-      <li class="level-list-item" data-level="Intermediate">
+      <li class="level-list-item" data-level="${levels[1]}">
         <figure>
           <img " src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart">
           <figcaption class>${levels[1]}</figcaption>
         </figure>
       </li>
-      <li class="level-list-item" data-level="Advanced">
+      <li class="level-list-item" data-level="${levels[2]}">
         <figure>
           <img class="level-image-3" src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">
           <figcaption>${levels[2]}</figcaption>
@@ -89,11 +89,32 @@ function newRound() {
   if (gameData.round === 1) {
     // Set contents for popup area:
     let title = "Round 1";
+
+    let levelImage =
+      gameData.level === "Beginner"
+        ? `
+        <figure>
+          <img class="level-image-1" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">
+          <figcaption class="level-name">${gameData.level}</figcaption>
+        </figure>`
+        : gameData.level === "Intermediate"
+        ? `
+      <figure>
+        <img " src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart">
+        <figcaption class>${gameData.level}</figcaption>
+      </figure> `
+        : `
+      <figure>
+        <img " src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">
+        <figcaption class>${gameData.level}</figcaption>
+      </figure> `;
+
     let body = `
       <p>Level: ${gameData.level}</p>
+      ${levelImage}
       <p class="large-text">Ready?</p>
       <button id="start-first-round-button">Start Game</button>
-    `;
+      `;
 
     showPopup(title, body);
 
