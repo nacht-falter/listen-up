@@ -1,61 +1,99 @@
 [
   {
-    "track": "Claude Debussy - La Mer - 2 - Jeux de vagues.mp3",
+    "file": "Claude Debussy - La Mer - 2 - Jeux de vagues.mp3",
     "title": "La Mer, Part II. Jeux de Vagues",
     "composer": "Claude Debussy",
-    "composer-image": "debussy.jpg",
+    "image": "debussy.png",
     "year": "1903-1905",
     "genre": "Symphonic",
     "period": "Early 20th Century",
     "instruments": [
+      "Violin",
+      "Viola",
+      "Cello",
+      "Double bass",
       "Flute",
       "Oboe",
       "Cor anglais",
       "Clarinet",
       "Bassoon",
-      "Contrabassoon",
       "French horn",
       "Trumpet",
-      "Cornet",
-      "Trombone",
       "Timpani",
-      "Percussion",
-      "Glockenspiel",
-      "Harp",
-      "Violin",
-      "Viola",
-      "Cello",
-      "Double bass"
+      "Orchestral Percussion",
+      "Trombone",
+      "Glocken&#8203;spiel",
+      "Harp"
     ]
   },
   {
-    "track": "Claudio Monteverdi - Lamento della ninfa.mp3",
+    "file": "Claudio Monteverdi - Lamento della ninfa.mp3",
     "title": "Lamento Della Ninfa",
     "composer": "Claudio Monteverdi",
-    "composer-image": "monteverdi.jpg",
+    "image": "monteverdi.png",
     "year": "1638",
     "genre": "Madrigal",
     "period": "Early Baroque",
-    "instruments": ["Voice", "Lute", "Viola da Gamba"]
+    "instruments": ["Female voice", "Male voice", "Theorbo", "Viola da gamba"]
   },
   {
-    "track": "Claude Debussy - Cello Sonata - I. Prologue - lent.mp3",
+    "file": "Claude Debussy - Cello Sonata - I. Prologue - lent.mp3",
     "title": "Cello Sonata - I. Prologue - lent",
     "composer": "Claude Debussy",
-    "composer-image": "debussy.jpg",
+    "image": "debussy.png",
     "year": "1915",
     "genre": "Instrumental Sonata",
     "period": "Early 20th Century",
     "instruments": ["Cello", "Piano"]
   },
   {
-    "track": "Clara Schumann - Scherzo no. 2, Op. 14.mp3",
+    "file": "Clara Schumann - Scherzo no. 2, Op. 14.mp3",
     "title": "Scherzo, Op. 14",
     "composer": "Clara Schumann",
-    "composer-image": "clara-schumann.jpg",
+    "image": "clara-schumann.png",
     "year": "1845",
     "genre": "Scherzo",
-    "period": "Early Romantic",
+    "period": "Romantic",
     "instruments": ["Piano"]
+  },
+  {
+    "file": "Fanny Hensel - Piano Trio, Op. 11.mp3",
+    "title": "Piano Trio, Op. 11",
+    "composer": "Fanny Hensel",
+    "image": "hensel.png",
+    "year": "1850",
+    "genre": "Piano Trio",
+    "period": "Romantic",
+    "instruments": ["Piano", "Violin", "Cello"]
+  },
+  {
+    "file": "Claudio Monteverdi - Signor, quell'infelice.mp3",
+    "title": "Signor, quell'infelice (L'Orfeo)",
+    "composer": "Claudio Monteverdi",
+    "image": "monteverdi.png",
+    "year": "1607",
+    "genre": "Opera",
+    "period": "Early Baroque",
+    "instruments": ["Female voice", "Harpsichord"]
+  },
+  {
+    "file": "Claude Debussy - Fantoches.mp3",
+    "title": "Fantoches (Fêtes galantes)",
+    "composer": "Claude Debussy",
+    "image": "debussy.png",
+    "year": "1902",
+    "genre": "Song",
+    "period": "Early 20th Century",
+    "instruments": ["Piano", "Female voice"]
+  },
+  {
+    "file": "J.S. Bach - I. Allemanda.mp3",
+    "title": "I. Allemanda (Partita No. 1 in B minor BWV 1002)",
+    "composer": "Johann Sebastian Bach",
+    "image": "bach.png",
+    "year": "1702",
+    "genre": "Partita",
+    "period": "Baroque",
+    "instruments": ["Violin"]
   }
 ]

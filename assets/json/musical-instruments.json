@@ -1,0 +1,134 @@
+[
+  {
+    "name": "Female voice",
+    "image": "female-singer.png"
+  },
+  {
+    "name": "Male voice",
+    "image": "male-singer.png"
+  },
+  {
+    "name": "Choir",
+    "image": "choir.png"
+  },
+  {
+    "name": "Violin",
+    "image": "violin.png"
+  },
+  {
+    "name": "Viola",
+    "image": "viola.png"
+  },
+  {
+    "name": "Cello",
+    "image": "cello.png"
+  },
+  {
+    "name": "Double bass",
+    "image": "double-bass.png"
+  },
+  {
+    "name": "Viola da gamba",
+    "image": "viola-da-gamba.png"
+  },
+  {
+    "name": "Piano",
+    "image": "piano.png"
+  },
+  {
+    "name": "Organ",
+    "image": "organ.png"
+  },
+  {
+    "name": "Harpsi&#8203;chord",
+    "image": "harpsichord.png"
+  },
+  {
+    "name": "Clavi&#8203;chord",
+    "image": "clavichord.png"
+  },
+  {
+    "name": "Guitar",
+    "image": "guitar.png"
+  },
+  {
+    "name": "Harp",
+    "image": "harp.png"
+  },
+  {
+    "name": "Theorbo",
+    "image": "theorbo.png"
+  },
+  {
+    "name": "Lute",
+    "image": "lute.png"
+  },
+  {
+    "name": "Mandolin",
+    "image": "mandolin.png"
+  },
+  {
+    "name": "Flute",
+    "image": "flute.png"
+  },
+  {
+    "name": "Piccolo",
+    "image": "piccolo.png"
+  },
+  {
+    "name": "Oboe",
+    "image": "oboe.png"
+  },
+  {
+    "name": "Cor anglais",
+    "image": "cor-anglais.png"
+  },
+  {
+    "name": "Clarinet",
+    "image": "clarinet.png"
+  },
+  {
+    "name": "Bassoon",
+    "image": "bassoon.png"
+  },
+  {
+    "name": "Recorder",
+    "image": "recorder.png"
+  },
+  {
+    "name": "Trumpet",
+    "image": "trumpet.png"
+  },
+  {
+    "name": "French horn",
+    "image": "french-horn.png"
+  },
+  {
+    "name": "Trombone",
+    "image": "trombone.png"
+  },
+  {
+    "name": "Tuba",
+    "image": "tuba.png"
+  },
+  {
+    "name": "Timpani",
+    "image": "timpani.png"
+  },
+  {
+    "name": "Orchestral Percussion",
+    "image": "orchestral-percussion.png"
+  },
+  {
+    "name": "Glocken&#8203;spiel",
+    "image": "glockenspiel.png"
+  },
+  {
+    "name": "Xylophone",
+    "image": "xylophone.png"
+  },
+  {
+    "name": "Marimba",
+    "image": "marimba.png"
+  }
+]
