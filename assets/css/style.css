@@ -1,17 +1,34 @@
 /*--------------------------------
+FONTS
+--------------------------------*/
+
+@font-face {
+  font-family: "montserrat";
+  src: url(../fonts/Montserrat-VariableFont_wght.ttf); /* https://fonts.google.com/specimen/Montserrat */
+}
+
+@font-face {
+  font-family: "delicious";
+  src: url(../fonts/DeliciousHandrawn-Regular.ttf); /* https://fonts.google.com/specimen/Delicious+Handrawn */
+}
+
+/*--------------------------------
+/*--------------------------------
   VARIABLES
   --------------------------------*/
 :root {
   /* CSS variable functionality adapted from https://www.w3schools.com/css/css3_variables.asp */
   /* Defining colors to use for the application */
-  --primary-color: #222222;
-  --secondary-color: #aaaaaa;
+  --primary-color: #008e9d;
+  --secondary-color: #2e4268;
   --black: #111;
   --white: #fff;
   --off-white: #eee;
   --darkgrey: #222;
-  --lightgrey: #888;
+  --lightgrey: #cccccc;
   --green: lightgreen;
+  --red: red;
+  --yellow: yellow;
 }
 
 /*--------------------------------
@@ -23,10 +40,36 @@
   margin: 0;
   padding: 0;
   overflow: hidden;
+  font-family: montserrat, Verdana, sans-serif;
+  color: var(--white);
+}
+
+body {
+  font-size: 14px;
+  background: linear-gradient(var(--secondary-color), var(--primary-color));
+}
+
+h2 {
+  padding-top: 2vh;
+}
+
+h3 {
+  padding-top: 2vh;
+}
+
+p {
+  padding: 1vh 0;
 }
 
 li {
   list-style: none;
+}
+
+button {
+  color: var(--darkgrey);
+  padding: 0.5vh;
+  margin-top: 1vh;
+  border-radius: 7px;
 }
 
 /*--------------------------------
@@ -35,46 +78,42 @@ li {
 main {
   padding: 0 5vw;
   height: 85vh;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 header,
 footer {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
 header {
   height: 10vh;
-  border-bottom: 1px solid var(--black);
+  background-color: var(--primary-color);
 }
 
 footer {
   height: 5vh;
-  border-top: 1px solid var(--black);
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-#info-area {
-  height: 25%;
-}
-
-#info-area > :first-child {
-  padding-top: 3%;
-}
-
-#game-area {
-  height: 75%;
+#info {
+  max-height: 20vh;
 }
 
 #countdown-area {
-  height: 10%;
+  height: 5vh;
+  min-height: 15px;
 }
+
 #options-area {
-  max-height: 100%;
-  margin-bottom: 5%;
+  max-height: 60vh;
   padding: 10px;
   border-radius: 7px;
-  border: 1px solid var(--black);
+  background: linear-gradient(var(--white), var(--lightgrey));
   overflow: scroll;
 }
 
@@ -93,27 +132,23 @@ footer {
 /* Solution found at: https://stackoverflow.com/questions/54927180/css-grid-square-layout */
 .grid-container {
   display: grid;
-  gap: 5px;
+  gap: 1vh;
 }
 
 .grid-layout-1 {
-  /* TODO: Add media query */
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .grid-layout-2 {
-  /* TODO: Add media query */
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .grid-layout-3 {
-  /* TODO: Add media query */
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .grid-item {
   aspect-ratio: 1;
-  border: 1px solid var(--black);
   border-radius: 7px;
   transition: all 0.05s ease-in;
 }
@@ -121,10 +156,31 @@ footer {
 /*--------------------------------
   ADDITIONAL STYLES
   --------------------------------*/
-.instrument-img {
-  display: block;
-  width: 100%;
-  height: 100%;
+.large-text {
+  font-size: 150%;
+}
+
+.select-level li {
+  margin: 1vh 0;
+}
+
+.level-list-item {
+  flex: 100%;
+}
+
+.level-list-item figure {
+  margin: 0 10vw;
+  min-width: 15vw;
+  padding: 2vh;
+  border-radius: 20px;
+}
+
+.selected-item figure {
+  background-color: rgba(215, 223, 223, 0.5);
+}
+
+#score-area p {
+  flex: 100%;
 }
 
 .instrument-tile {
@@ -135,13 +191,13 @@ footer {
 }
 
 .instrument-tile .item-content {
-  color: var(--white);
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(255, 255, 255, 0);
+  text-shadow: 0 0 2px var(--black);
   transition: all 0.05s ease-in;
 }
 
@@ -157,10 +213,7 @@ footer {
   animation: shake 0.4s;
 }
 
-.wrong-item .item-content {
-  background-color: rgba(255, 0, 255, 0.3);
-}
-
+/* Source for animation: https://css-tricks.com/snippets/css/shake-css-keyframe-animation */
 @keyframes shake {
   10%,
   90% {
@@ -184,12 +237,18 @@ footer {
   }
 }
 
+.wrong-item .item-content {
+  background-color: rgba(255, 0, 255, 0.3);
+}
+
 .score-float {
   position: absolute;
   top: 20%;
   opacity: 0;
+  font-family: delicious, "Courier New", Courier, monospace;
   font-size: 200%;
   transition: transform 2s, opacity 1s;
+  text-shadow: 0 0 2px var(--darkgrey);
 }
 
 .visible-float {
@@ -202,7 +261,7 @@ footer {
 
 .progress-bar-frame {
   width: 100%;
-  height: 100%;
+  height: 50%;
   max-height: 50px;
   border: 1px solid var(--black);
 }
@@ -216,15 +275,22 @@ footer {
 
 .progress-bar-empty {
   width: 0%;
+  animation: turn-red 9000ms;
 }
 
-/*--------------------------------
-  HEADER STYLES
-  --------------------------------*/
+@keyframes turn-red {
+  0% {
+    background-color: var(--green);
+  }
 
-/*--------------------------------
-  FOOTER STYLES
-  --------------------------------*/
+  80% {
+    background-color: var(--yellow);
+  }
+
+  100% {
+    background-color: var(--red);
+  }
+}
 
 /*--------------------------------
   POPUP STYLES
@@ -235,13 +301,19 @@ footer {
 
 #popup-content {
   position: absolute;
-  top: 20vh;
-  right: 10vw;
+  /* Place popup at the center. Source: https://www.w3schools.com/css/css_align.asp#gsc.tab=0 */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 80vw;
-  min-height: 30vh;
+  min-width: 300px;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow: scroll;
   border-radius: 20px;
-  border: 1px solid var(--black);
-  background-color: var(--white);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  box-shadow: 1px 1px 2px var(--darkgrey);
+  padding: 2vh 2vw;
   z-index: 3;
 }
 
@@ -249,21 +321,41 @@ footer {
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 2;
 }
 
-/*--------------------------------
-  ADDITIONAL TYPOGRAPHY
-  --------------------------------*/
-#score {
-  font-size: 150%;
+#track-info {
+  border: 1px solid var(--white);
+  border-radius: 20px;
+  width: fit-content;
+  margin: 1vh auto;
+  padding: 0 5vw;
+}
+
+#track-info td {
+  text-align: left;
+  padding: 3px 1vw;
 }
 
 /*--------------------------------
   IMAGE STYLES
   --------------------------------*/
+.select-level img {
+  width: auto;
+  height: 10vh;
+  border-radius: 7px;
+}
 
-/*--------------------------------
-  FORMS AND BUTTONS
-  --------------------------------*/
+.instrument-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.composer-image {
+  width: auto;
+  height: 20vh;
+  padding: 1vh;
+  border-radius: 10%;
+}
