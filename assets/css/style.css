@@ -85,6 +85,7 @@ main {
   height: 85vh;
   max-width: 1000px;
   margin: 0 auto;
+  transition: all 1s;
 }
 
 header,
@@ -98,6 +99,7 @@ footer {
 header {
   height: 10vh;
   background-color: var(--primary-color);
+  transition: all 1s;
 }
 
 footer {
@@ -113,7 +115,7 @@ footer {
 }
 
 #options-area {
-  max-height: 55vh;
+  max-height: 63vh;
   padding: 10px;
   border-radius: 7px;
   background: linear-gradient(var(--white), var(--lightgrey));
@@ -210,6 +212,25 @@ footer {
 /*--------------------------------
   ADDITIONAL STYLES
   --------------------------------*/
+/* Hide header on small screens */
+@media only screen and (max-height: 700px) {
+  .header-hidden {
+    margin-top: -9vh;
+  }
+
+  .header-hidden:hover {
+    margin-top: 0;
+  }
+
+  main {
+    height: 94vh;
+  }
+
+  .header-hidden:hover + main {
+    height: 85vh;
+  }
+}
+
 .large-text {
   font-size: 150%;
 }

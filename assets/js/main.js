@@ -123,6 +123,7 @@ function newRound() {
  */
 function startRound() {
   console.log("Function called: startRound");
+  document.getElementsByTagName("header")[0].classList.add("header-hidden");
   gameData = selectTrack(allTracks);
   let taskInstruments = setupInstruments(allInstruments);
   setupTask(taskInstruments);
