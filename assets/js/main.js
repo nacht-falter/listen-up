@@ -83,7 +83,7 @@ function selectLevel() {
  */
 function newRound() {
   console.log("New Round started with difficulty: " + gameData.difficulty);
-  if (gameData.currentTrack.audio) {
+  if (audio) {
     stopAudio();
   }
   if (gameData.round === 1) {
@@ -105,7 +105,7 @@ function newRound() {
       <p>You are going to hear some music.</p>
       <p>Your task is to identify all the instruments which are playing.</p>
       <p class="large-text">Ready?</p>
-      <button id="start-first-round-button" aria-label="Start game button">Start Game</button>`;
+      <button id="start-first-round-button" aria-label="Button to select the games difficulty level">Start Game</button>`;
 
     showPopup(title, body);
 
@@ -298,12 +298,12 @@ function playAudio() {
   let trackVolume = gameData.currentTrack.volume ? gameData.currentTrack.volume : 0.98;
   let startPosition = gameData.currentTrack.position ? gameData.currentTrack.position : 0.2;
 
-  gameData.currentTrack.audio = new Audio(audioFile);
-  let audio = gameData.currentTrack.audio;
+  audio.src = audioFile;
+  audio.load();
   audio.currentTime = startPosition;
-  audio.volume = 0;
 
   if (navigator.platform !== "iPhone" || "iPad") {
+    audio.volume = 0;
     const fadeAudio = setInterval(() => {
       if (audio.volume < trackVolume) {
         audio.volume += 0.02;
@@ -314,9 +314,9 @@ function playAudio() {
   }
 
   audio.play();
-  console.log("Audio file playing: " + audioFile);
+  console.log(`Audio file playing with volume ${trackVolume} at position ${startPosition}: ${audio.currentSrc}`);
   // Throw an error if audio file is not available. Solution found at https://www.w3schools.com/tags/av_event_error.asp#gsc.tab=0
-  gameData.currentTrack.audio.onerror = function () {
+  audio.onerror = function () {
     console.log("Error: Audio file not available. Starting new round!");
     newRound();
   };
@@ -326,7 +326,6 @@ function playAudio() {
  * Source: https://thewebdev.info/2021/10/14/how-to-playback-html-audio-with-fade-in-and-fade-out-with-javascript/
  */
 function stopAudio() {
-  let audio = gameData.currentTrack.audio;
   if (navigator.platform === "iPhone" || "iPad") {
     audio.pause();
   } else {
@@ -347,7 +346,6 @@ function stopAudio() {
  * Reduce audio Volume
  */
 function fadeAudio() {
-  let audio = gameData.currentTrack.audio;
   if (navigator.platform !== "iPhone" || "iPad") {
     const fadeAudio = setInterval(() => {
       if (audio.volume !== 0) {
@@ -513,7 +511,7 @@ function endRound() {
       </table>
     </div>
     <button id="end-game-button" aria-label="Button to end the Game">End Game</button>
-    <button id="next-round-button" aria-label="Button to start the next Round>Next round</button>
+    <button id="next-round-button" aria-label="Button to start the next round">Next round</button>
     `;
 
   showPopup(title, body);
@@ -689,6 +687,9 @@ fetch("assets/json/musical-instruments.json")
 
 // Initialize variable holding the game data so that it is accessible on global scope
 let gameData = {};
+
+// Create empty audio object
+let audio = new Audio();
 
 // Wait for DOM content to load, then start the game
 document.addEventListener("DOMContentLoaded", function () {
