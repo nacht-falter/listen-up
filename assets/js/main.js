@@ -5,15 +5,16 @@
  */
 function newGame() {
   gameData = {
-    round: 1,
-    perfectRounds: 0,
-    score: 0,
-    lives: 3,
-    playedTracks: [],
     currentTrack: {},
     difficulty: 1,
     itemCount: 0,
+    lives: 3,
+    perfectRounds: 0,
+    playedTracks: [],
+    round: 1,
+    score: 0,
   };
+
   document.getElementById("score-counter").textContent = gameData.score;
   selectLevel();
 }
@@ -32,19 +33,22 @@ function selectLevel() {
     <ul class="select-level flex-container">
       <li class="level-list-item" aria-label="Button to select the games difficulty level" data-level="${levels[0]}">
         <figure>
-          <img class="level-image-1" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">
+          <img class="level-image-1" src="assets/images/image-level-1.png"
+            alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">
           <figcaption class="level-name">${levels[0]}</figcaption>
         </figure>
       </li>
       <li class="level-list-item" aria-label="Button to select the games difficulty level" data-level="${levels[1]}">
         <figure>
-          <img " src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart">
+          <img class="level-list-item" src="assets/images/image-level-2.png"
+            alt="A stylized image of Mozart" aria-label="A stylized image of Mozart">
           <figcaption class>${levels[1]}</figcaption>
         </figure>
       </li>
       <li class="level-list-item" aria-label="Button to select the games difficulty level" data-level="${levels[2]}">
         <figure>
-          <img class="level-image-3" src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">
+          <img class="level-image-3" src="assets/images/image-level-3.png"
+            alt="A stylized image of Mozart wearing sunglasses" aria-label="A stylized image of Mozart wearing sunglasses">
           <figcaption>${levels[2]}</figcaption>
         </figure>
       </li>
@@ -57,7 +61,6 @@ function selectLevel() {
   // Add event listeners to the level list items and to the confirm button:
   const button = document.getElementById("confirm-level-button");
   const items = document.getElementsByClassName("level-list-item");
-
   for (let item of items) {
     item.addEventListener("click", function () {
       for (let i of items) {
@@ -90,12 +93,18 @@ function newRound() {
     // Set contents for popup area:
     let title = "Round 1";
 
-    let levelImage =
-      gameData.level === "Beginner"
-        ? `<img class="level-image" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">`
-        : gameData.level === "Intermediate"
-        ? `<img class="level-image" src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart"> `
-        : `<img class="level-image" src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">`;
+    let levelImage;
+    if (gameData.level === "Beginner") {
+      levelImage = `<img class="level-image" src="assets/images/image-level-1.png"
+          alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">`;
+    } else if (gameData.level === "Intermediate") {
+      levelImage = `<img class="level-image" src="assets/images/image-level-2.png"
+          alt="A stylized image of Mozart" aria-label="A stylized image of Mozart">`;
+    } else {
+      levelImage = `<img class="level-image" src="assets/images/image-level-3.png"
+          alt="A stylized image of Mozart wearing sunglasses" aria-label="A stylized image of Mozart wearing sunglasses">`;
+    }
+    gameData.levelImage = levelImage;
 
     let body = `
       <figure>
@@ -158,24 +167,34 @@ function hidePopup() {
  */
 function selectTrack(allTracks) {
   console.log("Function called: selectTrack");
-  // Set maximum number of Instruments according to difficulty
-  const instrumentCountMax =
-    gameData.difficulty < 10
-      ? 3
-      : gameData.difficulty < 15
-      ? 6
-      : gameData.difficulty < 20
-      ? 10
-      : gameData.difficulty < 25
-      ? 20
-      : 20;
 
-  // Find all tracks in allTracks array whose number of instruments is <= instrumentCountMax
-  // Solution adapted from: https://stackoverflow.com/questions/52311150/find-all-matching-elements-with-in-an-array-of-objects
+  // Set maximum number of Instruments according to difficulty
+  let instrumentCountMax;
+  if (gameData.difficulty < 10) {
+    instrumentCountMax = 3;
+  } else if (gameData.difficulty < 15) {
+    instrumentCountMax = 6;
+  } else if (gameData.difficulty < 20) {
+    instrumentCountMax = 10;
+  } else if (gameData.difficulty < 25) {
+    instrumentCountMax = 20;
+  } else {
+    instrumentCountMax = 20;
+  }
+
+  /*
+  Find all tracks in allTracks array whose number of instruments is
+  less than instrumentCountMax
+  Solution adapted from: https://stackoverflow.com/questions/52311150/
+  find-all-matching-elements-with-in-an-array-of-objects
+  */
   let tracks = allTracks.filter((item) => item.instruments.length <= instrumentCountMax);
 
-  // Generate random number. Check if it has already been used and generate another if necessary:
-  // If all available tracks have been played reset playedTracks
+  /*
+  Generate random number. Check if it has already been used and generate
+  another if necessary. If all available tracks have been played reset
+  playedTracks
+  */
   let rnd;
   do {
     rnd = Math.floor(Math.random() * tracks.length);
@@ -195,15 +214,18 @@ function selectTrack(allTracks) {
 }
 
 /**
- * Create array of correct instruments and some random
- * additional instruments to be displayed as a list. Add
- * event listeners to the list items
+ * Create array of correct instruments and some random additional instruments
+ * to be displayed as a list. Add event listeners to the list items.
  */
 function setupInstruments(allInstruments) {
   console.log("Function called: setupInstruments");
-  // Look for track instruments in allInstruments array and store them in trackInstruments.
-  // Adapted from: https://bobbyhadz.com/blog/javascript-get-difference-between-two-arrays-of-objects
-  let trackInstruments = allInstruments.filter((item2) => {
+
+  /*
+  Look for track instruments in allInstruments array and store them in
+  trackInstruments. Adapted from: https://bobbyhadz.com/blog/javascript-get-
+  difference-between-two-arrays-of-objects
+  */
+  let trackInstruments = allInstruments.filter(function (item2) {
     return gameData.currentTrack.instruments.some((item1) => item1 === item2.name);
   });
 
@@ -212,8 +234,11 @@ function setupInstruments(allInstruments) {
     item.correct = true;
   }
 
-  // Remove track instruments from all instruments array, to make sure that there are no duplicates
-  // Adapted from https://stackoverflow.com/questions/45342155/how-to-subtract-one-array-from-another-element-wise-in-javascript
+  /*
+  Remove track instruments from all instruments array, to make sure that
+  there are no duplicates. Adapted from https://stackoverflow.com/questions/
+  45342155/how-to-subtract-one-array-from-another-element-wise-in-javascript
+  */
   let filteredInstruments = allInstruments.filter((item) => !trackInstruments.includes(item));
 
   // Set the amount of instruments to display according to difficulty:
@@ -222,17 +247,21 @@ function setupInstruments(allInstruments) {
   // Calculate the amount of additonal instruments to display:
   let additionalInstrumentCount = totalInstrumentsCount - trackInstruments.length;
 
-  // Shuffle the array with all instruments and select the appropriate number of additional instruments
-  // Adapted from https://stackoverflow.com/questions/19269545/how-to-get-a-number-of-random-elements-from-an-array
+  /*
+  Shuffle the array with all instruments and select the appropriate number
+  of additional instruments. Adapted from https://stackoverflow.com/questions/
+  19269545/how-to-get-a-number-of-random-elements-from-an-array
+  */
   let additionalInstruments = shuffleArray(filteredInstruments).slice(0, additionalInstrumentCount);
 
   let taskInstruments = shuffleArray(trackInstruments.concat(additionalInstruments));
+
   return taskInstruments;
 }
 
 /**
- * Shuffle array with Fisher-Yates algorithm.
- * Source: https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+ * Shuffle array with Fisher-Yates algorithm. Source:
+ * https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
  */
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -253,24 +282,37 @@ function setupTask(taskInstruments) {
 
   // Set the column count for grid layout:
   let gridLayout = taskInstruments.length <= 12 ? 1 : taskInstruments.length <= 16 ? 2 : 3;
+
   allAnswers.classList.add(`grid-layout-${gridLayout}`);
   let points = 0;
   let wrongAnswers = 0;
 
-  // Create list items for all instruments in taskInstruments array and add event listeners:
+  /*
+  Create list items for all instruments in taskInstruments array and add event
+  listeners.
+  */
   for (let instrument of taskInstruments) {
     const createInstrument = document.createElement("li");
     createInstrument.classList.add("grid-item", "instrument-tile");
-    createInstrument.style.backgroundImage = `url(assets/images/instruments/${instrument.image})`;
+    createInstrument.style.backgroundImage = `
+      url(assets/images/instruments/${instrument.image})
+    `;
     createInstrument.innerHTML = `
       <span class="item-content">
         <p>${instrument.name}</p>
-      </span>`;
+      </span>
+    `;
 
     createInstrument.addEventListener("click", function () {
       if (instrument.correct) {
         createInstrument.classList.add("correct-item");
-        points < 0 ? (points = 0) : points++;
+
+        if (points < 0) {
+          points = 0;
+        } else {
+          points++;
+        }
+
         wrongAnswers = 0;
         updateScore(true, points, createInstrument);
       } else {
@@ -292,7 +334,10 @@ function setupTask(taskInstruments) {
  */
 function playAudio() {
   console.log("Function called: playAudio");
-  // Play audio file. Adapted from https://stackoverflow.com/questions/52575143/play-an-audio-file-in-javascript
+
+  /* Play audio file. Adapted from:
+  https://stackoverflow.com/questions/52575143/play-an-audio-file-in-javascript
+  */
   let audioFile = "assets/audio/" + gameData.currentTrack.file;
 
   // Read track volume and starting position
@@ -315,20 +360,35 @@ function playAudio() {
   }
 
   audio.play();
-  console.log(`Audio file playing with volume ${trackVolume} at position ${startPosition}: ${audio.currentSrc}`);
-  // Throw an error if audio file is not available. Solution found at https://www.w3schools.com/tags/av_event_error.asp#gsc.tab=0
+  console.log(`Audio file playing with volume ${trackVolume} at position
+    ${startPosition}: ${audio.currentSrc}`);
+
+  /* Log an error if audio file is not available. Solution found at:
+  https://www.w3schools.com/tags/av_event_error.asp#gsc.tab=0
+  */
   audio.onerror = function () {
     console.log("Error: Audio file not available. Starting new round!");
     newRound();
   };
 }
 
-/** Stop current audio playback
- * Source: https://thewebdev.info/2021/10/14/how-to-playback-html-audio-with-fade-in-and-fade-out-with-javascript/
+/**
+ * Stop current audio playback
  */
 function stopAudio() {
+  /*
+  Check if platform is iOS and skip fade out, because volume control is not
+  available on iOS: https://developer.apple.com/library/archive/documentation/
+  AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/
+  Device-SpecificConsiderations.html
+  */
   if (navigator.platform === "iPhone" || "iPad") {
     audio.pause();
+
+    /*
+ Fade out audio. Source: https://thewebdev.info/2021/10/14/how-to-playback-
+ html-audio-with-fade-in-and-fade-out-with-javascript/
+ */
   } else {
     const fadeAudio = setInterval(() => {
       if (audio.volume !== 0) {
@@ -361,21 +421,23 @@ function fadeAudio() {
 }
 
 /**
- * Calculate countdown time according to difficulty and number
- * of instruments and display progress bar.
- * Call endRound function when time runs out.
+ * Calculate countdown time according to difficulty and number of instruments
+ * and display progress bar. Call endRound function when time runs out.
  */
 function countdownTimer() {
   console.log("Function called: countdownTimer");
   let defaultTime = 90000;
   let minTime = 20000;
   let maxTime = 120000;
-  // Calculate countdown time depending on difficulty and number of instruments with
+
+  /*
+  Calculate countdown time depending on difficulty and number of instruments.
+  Solution found at:https://stackoverflow.com/questions/5842747/how-can-i-use-
+  javascript-to-limit-a-number-between-a-min-max-value
+  */
+  let instrumentCount = gameData.currentTrack.instruments.length;
   let countdownTime = Math.min(
-    Math.max(
-      parseInt((defaultTime / (gameData.difficulty / 20)) * (gameData.currentTrack.instruments.length / 10)),
-      minTime
-    ),
+    Math.max(parseInt((defaultTime / (gameData.difficulty / 20)) * (instrumentCount / 10)), minTime),
     maxTime
   );
   console.log("Countdown time: " + countdownTime);
@@ -475,21 +537,27 @@ function endRound() {
 
   // Prepare content for popup:
   let title = `Round ${gameData.round} finished`;
-  let message =
-    gameData.lives === 0
-      ? "No more lives ... Game Over!"
-      : gameData.itemCount === 0
-      ? "Better luck next time!"
-      : gameData.itemCount < track.instruments.length
-      ? "Not bad!"
-      : "Well done!";
+  let message;
+  if (gameData.lives === 0) {
+    message = "No more lives ... Game Over!";
+  } else if (gameData.itemCount === 0) {
+    message = "Better luck next time!";
+  } else if (gameData.itemCount < track.instruments.length) {
+    message = "Not bad!";
+  } else {
+    message = "Well done!";
+  }
+
   let body = `
     <p><strong>${message}</strong></p>
-    <p>You found ${gameData.itemCount} of ${track.instruments.length} instruments</p>
-    <p class="large-text">Score: ${gameData.score} | Lives: ${gameData.lives}</p>
+    <p>You found ${gameData.itemCount} of ${track.instruments.length}
+      instruments</p>
+    <p class="large-text">Score: ${gameData.score} | Lives:
+      ${gameData.lives}</p>
     <div id="track-info">
       <h3>Track information</h3>
-      <img class="composer-image" src="assets/images/composers/${track.image}" alt="An image of ${track.composer}">
+      <img class="composer-image" src="assets/images/composers/${track.image}"
+        alt="An image of ${track.composer}">
       <table>
           <tbody>
           <tr>
@@ -549,10 +617,10 @@ function endRound() {
 function confirmEnd() {
   let title = "End Game?";
   let body = `
-      <p>Are you sure you want to abort the game?</p>
-      <button id="continue-game-button" aria-label="Button to continue the game">No, continue</button>
-      <button id="end-game-button" aria-label="Button to end the game">Yes, I'm sure</button>
-      `;
+    <p>Are you sure you want to abort the game?</p>
+    <button id="continue-game-button" aria-label="Button to continue the game">No, continue</button>
+    <button id="end-game-button" aria-label="Button to end the game">Yes, I'm sure</button>
+    `;
 
   showPopup(title, body);
 
@@ -579,16 +647,9 @@ function levelUp() {
     gameData.difficulty += 5;
 
     // Prepare popup
-    let levelImage =
-      gameData.level === "Beginner"
-        ? `<img class="level-image" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">`
-        : gameData.level === "Intermediate"
-        ? `<img class="level-image" src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart"> `
-        : `<img class="level-image" src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">`;
-
     let title = "Level up!";
     let body = `
-      ${levelImage}
+      ${gameData.levelImage}
       <p class="final-score">Well done!</p>
       <p class="final-score">Difficulty increased</p>
       <button id="continue-button" aria-label="Button to continue the game">Continue</button>
@@ -638,8 +699,7 @@ function cleanupTask() {
 }
 
 /**
- * Display end screen and offer to go to home page or
- * start new Game
+ * Display end screen and offer to go to home page or start new Game
  */
 function endGame() {
   console.log("Function called: endGame");
@@ -658,7 +718,10 @@ function endGame() {
   const newGameButton = document.getElementById("new-game-button");
 
   goHomeButton.addEventListener("click", function () {
-    // Go to home screen, source: https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+    /*
+    Go to home screen. Source:
+    https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+    */
     window.onbeforeunload = "";
     window.location.replace("./index.html");
   });
@@ -670,8 +733,10 @@ function endGame() {
 }
 
 // Start of program
-// Fetch JSON data from files:
-// Source for fetch() method: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_api_fetch
+
+/*
+Fetch JSON data from files. Source: https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_api_fetch
+*/
 let allTracks;
 fetch("assets/json/music-library.json")
   .then((response) => response.json())
@@ -686,7 +751,7 @@ fetch("assets/json/musical-instruments.json")
     allInstruments = data;
   });
 
-// Initialize variable holding the game data so that it is accessible on global scope
+// Initialize variable for game data so that it is accessible on global scope
 let gameData = {};
 
 // Create empty audio object
@@ -694,8 +759,11 @@ let audio = new Audio();
 
 // Wait for DOM content to load, then start the game
 document.addEventListener("DOMContentLoaded", function () {
-  // Ask for confirmation before leaving or refreshing the page
-  // Source: https://stackoverflow.com/questions/3221161/how-to-pop-up-an-alert-box-when-the-browsers-refresh-button-is-clicked
+  /*
+  Ask for confirmation before leaving or refreshing the page
+  Source: https://stackoverflow.com/questions/3221161/how-to-pop-up-an-alert-
+  box-when-the-browsers-refresh-button-is-clicked
+  */
   window.onbeforeunload = function () {
     return "Your progress will be lost if you leave the page, are you sure?";
   };
