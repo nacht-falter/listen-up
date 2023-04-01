@@ -225,7 +225,7 @@ function setupInstruments(allInstruments) {
   let filteredInstruments = allInstruments.filter((item) => !trackInstruments.includes(item));
 
   // Set the amount of instruments to display according to difficulty:
-  let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 8 ? 16 : 24;
+  let totalInstrumentsCount = trackInstruments.length < 5 ? 12 : trackInstruments.length < 8 ? 16 : 20;
 
   // Calculate the amount of additonal instruments to display:
   let additionalInstrumentCount = totalInstrumentsCount - trackInstruments.length;
@@ -305,7 +305,7 @@ function playAudio() {
 
   // Read track volume and starting position
   let trackVolume = gameData.currentTrack.volume ? gameData.currentTrack.volume : 0.98;
-  let startPosition = gameData.currentTrack.position ? gameData.currentTrack.position : 0.5;
+  let startPosition = gameData.currentTrack.position ? gameData.currentTrack.position : 0.2;
 
   gameData.currentTrack.audio = new Audio(audioFile);
   let audio = gameData.currentTrack.audio;
