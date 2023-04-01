@@ -419,6 +419,12 @@ h2.welcome {
   border-radius: 7px;
 }
 
+.level-image {
+  width: auto;
+  height: 25vh;
+  max-height: 256px;
+}
+
 @media only screen and (min-width: 700px) {
   .select-level img {
     height: 15vh;

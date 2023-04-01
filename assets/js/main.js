@@ -92,29 +92,20 @@ function newRound() {
 
     let levelImage =
       gameData.level === "Beginner"
-        ? `
-        <figure>
-          <img class="level-image-1" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">
-          <figcaption class="level-name">${gameData.level}</figcaption>
-        </figure>`
+        ? `<img class="level-image" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">`
         : gameData.level === "Intermediate"
-        ? `
-      <figure>
-        <img " src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart">
-        <figcaption class>${gameData.level}</figcaption>
-      </figure> `
-        : `
-      <figure>
-        <img " src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">
-        <figcaption class>${gameData.level}</figcaption>
-      </figure> `;
+        ? `<img class="level-image" src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart"> `
+        : `<img class="level-image" src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">`;
 
     let body = `
-      <p>Level: ${gameData.level}</p>
-      ${levelImage}
+      <figure>
+        ${levelImage}
+        <figcaption class="level-name">Level: ${gameData.level}</figcaption>
+      </figure>
+      <p>You are going to hear some music.</p>
+      <p>Your task is to identify all the instruments which are playing.</p>
       <p class="large-text">Ready?</p>
-      <button id="start-first-round-button">Start Game</button>
-      `;
+      <button id="start-first-round-button">Start Game</button>`;
 
     showPopup(title, body);
 
@@ -589,8 +580,16 @@ function levelUp() {
     gameData.difficulty += 5;
 
     // Prepare popup
+    let levelImage =
+      gameData.level === "Beginner"
+        ? `<img class="level-image" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">`
+        : gameData.level === "Intermediate"
+        ? `<img class="level-image" src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart"> `
+        : `<img class="level-image" src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">`;
+
     let title = "Level up!";
     let body = `
+      ${levelImage}
       <p class="final-score">Well done!</p>
       <p class="final-score">Difficulty increased</p>
       <button id="continue-button">Continue</button>
@@ -662,7 +661,7 @@ function endGame() {
   goHomeButton.addEventListener("click", function () {
     // Go to home screen, source: https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
     window.onbeforeunload = "";
-    window.location.replace("/index.html");
+    window.location.replace("./index.html");
   });
 
   newGameButton.addEventListener("click", function () {
