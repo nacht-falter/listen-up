@@ -57,6 +57,15 @@ p {
   padding: 1vh 0;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover,
+a:hover i {
+  color: var(--secondary-color);
+}
+
 li {
   list-style: none;
 }
@@ -111,6 +120,12 @@ footer {
   border-radius: 7px;
   background: linear-gradient(var(--white), var(--lightgrey));
   overflow: scroll;
+}
+
+@media only screen and (min-width: 400px) {
+  main > * {
+    margin-top: 1vh;
+  }
 }
 
 @media only screen and (min-width: 700px) {
@@ -197,6 +212,20 @@ footer {
 
 .select-level li {
   margin: 1vh 0;
+}
+
+h2.welcome {
+  margin-top: 5vh;
+}
+
+.start-game-button {
+  /* Place button at the center of the viewport. Source: https://www.w3schools.com/css/css_align.asp#gsc.tab=0 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 5em;
+  width: 5em;
 }
 
 .level-list-item {
