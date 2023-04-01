@@ -39,7 +39,6 @@ FONTS
   text-align: center;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   font-family: montserrat, Verdana, sans-serif;
   color: var(--white);
 }
@@ -86,6 +85,7 @@ main {
   max-width: 1000px;
   margin: 0 auto;
   transition: all 1s;
+  overflow: hidden;
 }
 
 header,
@@ -119,7 +119,7 @@ footer {
   padding: 10px;
   border-radius: 7px;
   background: linear-gradient(var(--white), var(--lightgrey));
-  overflow: scroll;
+  overflow: auto;
 }
 
 @media only screen and (max-height: 400px) {
@@ -401,8 +401,6 @@ h2.welcome {
   width: 80vw;
   min-width: 300px;
   max-width: 800px;
-  max-height: 80vh;
-  overflow: scroll;
   border-radius: 20px;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   box-shadow: 1px 1px 2px var(--darkgrey);
