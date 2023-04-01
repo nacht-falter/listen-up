@@ -1,32 +1,5 @@
 [
   {
-    "file": "claude_debussy-la_mer-2-jeux_de_vagues.mp3",
-    "title": "La Mer, Part II. Jeux de Vagues",
-    "composer": "Claude Debussy",
-    "image": "debussy.png",
-    "year": "1903-1905",
-    "genre": "Symphonic",
-    "period": "Early 20th Century",
-    "instruments": [
-      "Violin",
-      "Viola",
-      "Cello",
-      "Double bass",
-      "Flute",
-      "Oboe",
-      "Cor anglais",
-      "Clarinet",
-      "Bassoon",
-      "French horn",
-      "Trumpet",
-      "Timpani",
-      "Orchestral Percussion",
-      "Trombone",
-      "Glocken&#8203;spiel",
-      "Harp"
-    ]
-  },
-  {
     "file": "claudio_monteverdi-lamento_della_ninfa.mp3",
     "title": "Lamento Della Ninfa",
     "composer": "Claudio Monteverdi",
@@ -44,7 +17,8 @@
     "year": "1915",
     "genre": "Instrumental Sonata",
     "period": "Early 20th Century",
-    "instruments": ["Cello", "Piano"]
+    "instruments": ["Cello", "Piano"],
+    "position": 8
   },
   {
     "file": "clara_schumann-scherzo_no._2,_op._14.mp3",
@@ -64,7 +38,8 @@
     "year": "1850",
     "genre": "Piano Trio",
     "period": "Romantic",
-    "instruments": ["Piano", "Violin", "Cello"]
+    "instruments": ["Piano", "Violin", "Cello"],
+    "position": 2
   },
   {
     "file": "claudio_monteverdi-signor,_quell'infelice.mp3",
@@ -84,7 +59,8 @@
     "year": "1902",
     "genre": "Song",
     "period": "Early 20th Century",
-    "instruments": ["Piano", "Female voice"]
+    "instruments": ["Piano", "Female voice"],
+    "volume": 0.8
   },
   {
     "file": "j.s._bach-i._allemanda.mp3",
@@ -94,6 +70,60 @@
     "year": "1702",
     "genre": "Partita",
     "period": "Baroque",
-    "instruments": ["Violin"]
+    "instruments": ["Violin"],
+    "volume": 0.8
+  },
+  {
+    "file": "schoenberg_quartet_no._2_4th_movement.ogg",
+    "title": "String Quartet No. 2, 4th movement",
+    "composer": "Arnold Schönberg",
+    "image": "schoenberg.png",
+    "year": "1907-1908",
+    "genre": "String quartet",
+    "period": "Early 20th Century",
+    "instruments": ["Female voice", "Violin", "Viola", "Cello"],
+    "position": 135
+  },
+  {
+    "file": "alban_berg-4_pieces,_op._5.mp3",
+    "title": "Four Pieces for Clarinet and Piano, Op. 5",
+    "composer": "Alban Berg",
+    "image": "berg.png",
+    "year": "1913",
+    "genre": "Instrument Piece",
+    "period": "Early 20th Century",
+    "instruments": ["Clarinet", "Piano"]
+  },
+  {
+    "file": "antonia_vivaldi-concerto_for_bassoon_in_a_minor,_rv_498.mp3",
+    "title": "Concerto for Bassoon in a minor, RV 498",
+    "composer": "Antonio Vivaldi",
+    "image": "vivaldi.png",
+    "year": "Between 1728 and 1737",
+    "genre": "Concerto",
+    "period": "Early 20th Century",
+    "instruments": ["Bassoon", "Violin", "Viola", "Cello", "Double bass", "Harpsi&#8203;chord"],
+    "position": 22
+  },
+  {
+    "file": "johannes_brahms-clarinet_sonata_no._1,_op._120_no._1-complete_performance.mp3",
+    "title": "Clarinet Sonata, Op. 120 No.1",
+    "composer": "Johannes Brahms",
+    "image": "brahms.png",
+    "year": "1894",
+    "genre": "Instrumental Sonata",
+    "period": "Romantic",
+    "instruments": ["Clarinet", "Piano"]
+  },
+  {
+    "file": "camille_saint-saëns-bassoon_sonata,_op.168-allegro_moderato.mp3",
+    "title": "Bassoon Sonata, Op 168 - Allegro Moderato",
+    "composer": "Camille Saint-Saëns",
+    "image": "saint-saens.png",
+    "year": "1921",
+    "genre": "Instrumental Sonata",
+    "period": "Early 20th Century",
+    "instruments": ["Bassoon", "Piano"],
+    "position": 8
   }
 ]
