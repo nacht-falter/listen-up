@@ -302,8 +302,27 @@ function playAudio() {
   console.log("Function called: playAudio");
   // Play audio file. Adapted from https://stackoverflow.com/questions/52575143/play-an-audio-file-in-javascript
   let audioFile = "assets/audio/" + gameData.currentTrack.file;
+
+  // Read track volume and starting position
+  let trackVolume = gameData.currentTrack.volume ? gameData.currentTrack.volume : 0.98;
+  let startPosition = gameData.currentTrack.position ? gameData.currentTrack.position : 0.5;
+
   gameData.currentTrack.audio = new Audio(audioFile);
-  gameData.currentTrack.audio.play();
+  let audio = gameData.currentTrack.audio;
+  audio.currentTime = startPosition;
+  audio.volume = 0;
+
+  if (navigator.platform !== "iPhone" || "iPad") {
+    const fadeAudio = setInterval(() => {
+      if (audio.volume < trackVolume) {
+        audio.volume += 0.02;
+      } else {
+        clearInterval(fadeAudio);
+      }
+    }, 50);
+  }
+
+  audio.play();
   console.log("Audio file playing: " + audioFile);
   // Throw an error if audio file is not available. Solution found at https://www.w3schools.com/tags/av_event_error.asp#gsc.tab=0
   gameData.currentTrack.audio.onerror = function () {
@@ -322,7 +341,7 @@ function stopAudio() {
   } else {
     const fadeAudio = setInterval(() => {
       if (audio.volume !== 0) {
-        audio.volume -= 0.1;
+        audio.volume -= 0.05;
       }
 
       if (audio.volume < 0.02) {
