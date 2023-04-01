@@ -30,26 +30,26 @@ function selectLevel() {
   let title = "Choose your level";
   let body = `
     <ul class="select-level flex-container">
-      <li class="level-list-item" data-level="${levels[0]}">
+      <li class="level-list-item" aria-label="Button to select the games difficulty level" data-level="${levels[0]}">
         <figure>
           <img class="level-image-1" src="assets/images/image-level-1.png" alt="A stylized image of Mozart as a boy" aria-label="A stylized image of Mozart as a boy">
           <figcaption class="level-name">${levels[0]}</figcaption>
         </figure>
       </li>
-      <li class="level-list-item" data-level="${levels[1]}">
+      <li class="level-list-item" aria-label="Button to select the games difficulty level" data-level="${levels[1]}">
         <figure>
           <img " src="assets/images/image-level-2.png" alt="A stylized image of Mozart" aria-label="A stylized image of Mozart">
           <figcaption class>${levels[1]}</figcaption>
         </figure>
       </li>
-      <li class="level-list-item" data-level="${levels[2]}">
+      <li class="level-list-item" aria-label="Button to select the games difficulty level" data-level="${levels[2]}">
         <figure>
           <img class="level-image-3" src="assets/images/image-level-3.png" alt="A stylized image of Mozart as an old man wearing sunglasses" aria-label="A stylized image of Mozart as an old man wearing sunglasses">
           <figcaption>${levels[2]}</figcaption>
         </figure>
       </li>
     </ul>
-    <button id="confirm-level-button" disabled>Confirm</button>
+    <button id="confirm-level-button" aria-label="Button to confirm the selected level" disabled>Confirm</button>
     `;
 
   showPopup(title, body);
@@ -105,7 +105,7 @@ function newRound() {
       <p>You are going to hear some music.</p>
       <p>Your task is to identify all the instruments which are playing.</p>
       <p class="large-text">Ready?</p>
-      <button id="start-first-round-button">Start Game</button>`;
+      <button id="start-first-round-button" aria-label="Start game button">Start Game</button>`;
 
     showPopup(title, body);
 
@@ -512,8 +512,8 @@ function endRound() {
         </tbody>
       </table>
     </div>
-    <button id="end-game-button">End Game</button>
-    <button id="next-round-button">Next round</button>
+    <button id="end-game-button" aria-label="Button to end the Game">End Game</button>
+    <button id="next-round-button" aria-label="Button to start the next Round>Next round</button>
     `;
 
   showPopup(title, body);
@@ -551,8 +551,8 @@ function confirmEnd() {
   let title = "End Game?";
   let body = `
       <p>Are you sure you want to abort the game?</p>
-      <button id="continue-game-button">No, continue</button>
-      <button id="end-game-button">Yes, I'm sure</button>
+      <button id="continue-game-button" aria-label="Button to continue the game">No, continue</button>
+      <button id="end-game-button" aria-label="Button to end the game">Yes, I'm sure</button>
       `;
 
   showPopup(title, body);
@@ -592,7 +592,7 @@ function levelUp() {
       ${levelImage}
       <p class="final-score">Well done!</p>
       <p class="final-score">Difficulty increased</p>
-      <button id="continue-button">Continue</button>
+      <button id="continue-button" aria-label="Button to continue the game">Continue</button>
       `;
 
     showPopup(title, body);
@@ -649,8 +649,8 @@ function endGame() {
   let title = "Game Over";
   let body = `
       <p class="final-score">Final score: ${gameData.score}</p>
-      <button id="go-home-button">Go Home</button>
-      <button id="new-game-button">Start New Game</button>
+      <button id="go-home-button" aria-label="Button to go to the Home page">Go Home</button>
+      <button id="new-game-button" aria-label="Button to start a new game">Start New Game</button>
       `;
 
   showPopup(title, body);
