@@ -16,6 +16,7 @@ function newGame() {
   };
 
   document.getElementById("score-counter").textContent = gameData.score;
+  document.getElementById("lives-counter").textContent = gameData.lives;
   selectLevel();
 }
 
@@ -209,7 +210,7 @@ function selectTrack(allTracks) {
   // Store played track in game data to keep it from being selected again:
   gameData.playedTracks.push(rnd);
   gameData.currentTrack = track;
-  console.log(`Selected track: " ${track.composer} - ${track.title}`);
+  console.log(`Selected track: ${track.composer} - ${track.title}`);
   return gameData;
 }
 
