@@ -21,7 +21,7 @@ After starting the game, the user is asked to choose a level according to their 
 #### First round
 The user is then presented with a quick explanatory screen, which lets them know what to do in the game.
 
-![First round screen](listen-up-first-round.png)
+![First round screen](media/screenshots/listen-up-first-round.png)
 
 #### Gameplay
 Then the main game starts. A piece of music is played, and the user has to click on the musical instruments they can hear in the piece before the time runs out. The higher the difficulty, the less time the user has to identify all instruments. The user is presented with visual feedback letting them know whether they have clicked on a correct instrument or not.
@@ -31,27 +31,27 @@ Then the main game starts. A piece of music is played, and the user has to click
 #### End of round
 After the user has found all instruments or the time has run out the user is presented with a screen which displays the rounds results and some information about the piece of music which is playing. The music will continue playing until the user starts the next round or until the piece is over.
 
-![End screen](listen-up-end-screen.png)
+![End screen](media/screenshots/listen-up-end-screen.png)
 
 #### Level up
 After three rounds with no missed instruments, the difficulty is increased.
 
-![Level up](listen-up-level-up.png)
+![Level up](media/screenshots/listen-up-level-up.png)
 
 #### Game over
 If a round ends before the user has found any of the instruments, they lose a live. When there are no lives left, the game ends.
 
-![Game over](listen-up-game-over.png)
+![Game over](media/screenshots/listen-up-game-over.png)
 
 #### Hiding header
 On smaller screens, the header will automatically hide when the game starts in order to increase the space for the main content.
 
-![Hidden header](listen-up-hidden-header.png)
+![Hidden header](media/screenshots/listen-up-hidden-header.png)
 
 #### Footer section
 The footer provides the user with the option to restart the game or to go back to the Home page.
 
-![Footer](listen-up-footer.png)
+![Footer](media/screenshots/listen-up-footer.png)
 
 ### Future features
 
@@ -108,8 +108,8 @@ The footer provides the user with the option to restart the game or to go back t
 
 ### W3C Validators
 Both HTML and CSS pass the [W3C Markup Validator](https://validator.w3.org) and [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) with no errors:
-- [W3C Markup Validator results for index.html](https://validator.w3.org/nu/?doc=https%3A%2F%2Fnacht-falter.github.io%2Fkhandroma%2Findex.html) 
-- [W3C Markup Validator results for game.html](https://validator.w3.org/nu/?doc=https%3A%2F%2Fnacht-falter.github.io%2Fkhandroma%2Fgame.html) 
+- [W3C Markup Validator results for index.html](https://validator.w3.org/nu/?doc=https%3A%2F%2Fnacht-falter.github.io%2Flisten-up%2Findex.html) 
+- [W3C Markup Validator results for game.html](https://validator.w3.org/nu/?doc=https%3A%2F%2Fnacht-falter.github.io%2Flisten-up%2Fgame.html) 
 - [W3C CSS Validator results](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fnacht-falter.github.io%2Flisten-up%2Findex.html&profile=css3svg&usermedium=all&warning=1&vextwarning=&lang=en) 
 
 ### Jshint
