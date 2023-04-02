@@ -204,7 +204,7 @@ footer {
 }
 
 .grid-item {
-  aspect-ratio: 1;
+  aspect-ratio: 1 / 1;
   border-radius: 7px;
   transition: all 0.05s ease-in;
 }
@@ -224,6 +224,10 @@ footer {
 
   main {
     height: 94vh;
+  }
+
+  #main-index {
+    height: 85vh;
   }
 
   .header-hidden:hover + main {
@@ -246,6 +250,28 @@ h2.welcome {
 .start-game-button {
   height: 5em;
   width: 5em;
+  position: absolute;
+  /* Place button at the center. Source: https://www.w3schools.com/css/css_align.asp#gsc.tab=0 */
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 5px var(--darkgrey);
+}
+
+#start-game-wrapper {
+  width: 100%;
+  height: 50vh;
+  background: url("../images/gameplay-image-mobile.jpg") no-repeat center center / 100% auto;
+  border: 7px solid var(--white);
+  border-radius: 20px;
+  position: relative;
+}
+
+@media only screen and (min-width: 400px) {
+  #start-game-wrapper {
+    background-image: url("../images/gameplay-image.jpg");
+    border-width: 10px;
+  }
 }
 
 .level-list-item {
@@ -442,6 +468,7 @@ h2.welcome {
   width: auto;
   height: 25vh;
   max-height: 256px;
+  border-radius: 7px;
 }
 
 @media only screen and (min-width: 700px) {
