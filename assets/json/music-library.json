@@ -10,7 +10,7 @@
     "instruments": ["Female voice", "Male voice", "Theorbo", "Viola da gamba"]
   },
   {
-    "file": "claude_debussy-cello_sonata-i._prologue-lent.mp3",
+    "file": "claude_debussy-cello_sonata-i_prologue-lent.mp3",
     "title": "Cello Sonata - I. Prologue - lent",
     "composer": "Claude Debussy",
     "image": "debussy.png",
@@ -21,7 +21,7 @@
     "position": 8
   },
   {
-    "file": "clara_schumann-scherzo_no._2,_op._14.mp3",
+    "file": "clara_schumann-scherzo_no_2_op_14.mp3",
     "title": "Scherzo, Op. 14",
     "composer": "Clara Schumann",
     "image": "clara-schumann.png",
@@ -31,7 +31,7 @@
     "instruments": ["Piano"]
   },
   {
-    "file": "fanny_hensel-piano_trio,_op._11.mp3",
+    "file": "fanny_hensel-piano_trio_op_11.mp3",
     "title": "Piano Trio, Op. 11",
     "composer": "Fanny Hensel",
     "image": "hensel.png",
@@ -42,7 +42,7 @@
     "position": 2
   },
   {
-    "file": "claudio_monteverdi-signor,_quell'infelice.mp3",
+    "file": "claudio_monteverdi-signor_quell'infelice.mp3",
     "title": "Signor, quell'infelice (L'Orfeo)",
     "composer": "Claudio Monteverdi",
     "image": "monteverdi.png",
@@ -63,7 +63,7 @@
     "volume": 0.8
   },
   {
-    "file": "j.s._bach-i._allemanda.mp3",
+    "file": "js_bach-i_allemanda.mp3",
     "title": "I. Allemanda (Partita No. 1 in B minor BWV 1002)",
     "composer": "Johann Sebastian Bach",
     "image": "bach.png",
@@ -74,7 +74,7 @@
     "volume": 0.8
   },
   {
-    "file": "schoenberg_quartet_no._2_4th_movement.ogg",
+    "file": "schoenberg_quartet_no_2_4th_movement.ogg",
     "title": "String Quartet No. 2, 4th movement",
     "composer": "Arnold Schönberg",
     "image": "schoenberg.png",
@@ -85,28 +85,17 @@
     "position": 135
   },
   {
-    "file": "alban_berg-4_pieces,_op._5.mp3",
+    "file": "alban_berg-4_pieces_op_5.mp3",
     "title": "Four Pieces for Clarinet and Piano, Op. 5",
     "composer": "Alban Berg",
     "image": "berg.png",
     "year": "1913",
-    "genre": "Instrument Piece",
+    "genre": "Instrumental Piece",
     "period": "Early 20th Century",
     "instruments": ["Clarinet", "Piano"]
   },
   {
-    "file": "antonia_vivaldi-concerto_for_bassoon_in_a_minor,_rv_498.mp3",
-    "title": "Concerto for Bassoon in a minor, RV 498",
-    "composer": "Antonio Vivaldi",
-    "image": "vivaldi.png",
-    "year": "Between 1728 and 1737",
-    "genre": "Concerto",
-    "period": "Early 20th Century",
-    "instruments": ["Bassoon", "Violin", "Viola", "Cello", "Double bass", "Harpsi&#8203;chord"],
-    "position": 22
-  },
-  {
-    "file": "johannes_brahms-clarinet_sonata_no._1,_op._120_no._1-complete_performance.mp3",
+    "file": "johannes_brahms-clarinet_sonata_no_1_op_120_no_1.mp3",
     "title": "Clarinet Sonata, Op. 120 No.1",
     "composer": "Johannes Brahms",
     "image": "brahms.png",
@@ -116,7 +105,7 @@
     "instruments": ["Clarinet", "Piano"]
   },
   {
-    "file": "camille_saint-saëns-bassoon_sonata,_op.168-allegro_moderato.mp3",
+    "file": "camille_saint-saens-bassoon_sonata_op168-allegro_moderato.mp3",
     "title": "Bassoon Sonata, Op 168 - Allegro Moderato",
     "composer": "Camille Saint-Saëns",
     "image": "saint-saens.png",
