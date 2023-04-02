@@ -27,6 +27,7 @@ function newGame() {
  */
 function selectLevel() {
   console.log("Function called: selectLevel");
+  
   // Set contents for popup area:
   let levels = ["Beginner", "Intermediate", "Advanced"];
   let title = "Choose your level";
@@ -87,9 +88,11 @@ function selectLevel() {
  */
 function newRound() {
   console.log("New Round started with difficulty: " + gameData.difficulty);
+  
   if (audio) {
     stopAudio();
   }
+
   if (gameData.round === 1) {
     // Set contents for popup area:
     let title = "Round 1";
@@ -105,6 +108,7 @@ function newRound() {
       levelImage = `<img class="level-image" src="assets/images/image-level-3.png"
           alt="A stylized image of Mozart wearing sunglasses" aria-label="A stylized image of Mozart wearing sunglasses">`;
     }
+    
     gameData.levelImage = levelImage;
 
     let body = `
@@ -128,6 +132,7 @@ function newRound() {
     startRound();
   }
 }
+
 /**
  * Call the functions starting the next round
  */
@@ -279,6 +284,7 @@ function shuffleArray(array) {
  */
 function setupTask(taskInstruments) {
   console.log("Function called: setupTask");
+  
   const allAnswers = document.getElementById("all-answers");
 
   // Set the column count for grid layout:
@@ -386,10 +392,10 @@ function stopAudio() {
   if (navigator.platform === "iPhone" || "iPad") {
     audio.pause();
 
-    /*
- Fade out audio. Source: https://thewebdev.info/2021/10/14/how-to-playback-
- html-audio-with-fade-in-and-fade-out-with-javascript/
- */
+  /*
+  Fade out audio. Source: https://thewebdev.info/2021/10/14/how-to-playback-
+  html-audio-with-fade-in-and-fade-out-with-javascript/
+  */
   } else {
     const fadeAudio = setInterval(() => {
       if (audio.volume !== 0) {
@@ -427,6 +433,7 @@ function fadeAudio() {
  */
 function countdownTimer() {
   console.log("Function called: countdownTimer");
+  
   let defaultTime = 90000;
   let minTime = 20000;
   let maxTime = 120000;
@@ -441,7 +448,9 @@ function countdownTimer() {
     Math.max(parseInt((defaultTime / (gameData.difficulty / 20)) * (instrumentCount / 10)), minTime),
     maxTime
   );
+  
   console.log("Countdown time: " + countdownTime);
+  
   let progressBar = document.getElementsByClassName("progress-bar")[0];
   progressBar.style.transitionDuration = countdownTime + "ms";
   progressBar.style.animationDuration = countdownTime + "ms";
@@ -458,6 +467,7 @@ function countdownTimer() {
  */
 function updateScore(correct, points, clickedItem) {
   console.log("Function called: updateScore");
+  
   // Add or substract points to/from the score with wrong/right answer
   let oldScore = gameData.score;
   let scoreCounter = document.getElementById("score-counter");
@@ -499,6 +509,7 @@ function updateScore(correct, points, clickedItem) {
     // If all instruments have been found call endRound()
     let correctItems = document.getElementById("correct-items").innerText;
     let totalItems = document.getElementById("total-items").innerText;
+    
     if (correctItems === totalItems) {
       console.log("All instruments have been found");
 
@@ -533,12 +544,14 @@ function endRound() {
   if (gameData.itemCount === 0) {
     gameData.lives--;
   }
+  
   let livesCounter = document.getElementById("lives-counter");
   livesCounter.innerText = gameData.lives;
 
   // Prepare content for popup:
   let title = `Round ${gameData.round} finished`;
   let message;
+  
   if (gameData.lives === 0) {
     message = "No more lives ... Game Over!";
   } else if (gameData.itemCount === 0) {
@@ -674,6 +687,7 @@ function levelUp() {
  */
 function clearCountdown() {
   console.log("Function called: clearCountdown");
+  
   clearTimeout(gameData.countdownTimeout);
 
   let progressBar = document.getElementsByClassName("progress-bar")[0];
@@ -686,6 +700,7 @@ function clearCountdown() {
  */
 function cleanupTask() {
   console.log("Function called: cleanupTask");
+  
   gameData.itemCount = 0;
 
   // Remove 'correct' flags from allInstruments array
@@ -704,6 +719,7 @@ function cleanupTask() {
  */
 function endGame() {
   console.log("Function called: endGame");
+  
   stopAudio();
   gameData.lives = 3;
   let title = "Game Over";
